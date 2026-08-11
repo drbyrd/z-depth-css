@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Depth, Simulated</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="intro">
+        <p class="eyebrow">Concept demo</p>
+        <h1>What if CSS had a real sense of depth?</h1>
+        <p class="lede">
+          This playground treats <code>depth</code> like a missing sibling to
+          <code>width</code> and <code>aspect-ratio</code>, then fakes it with
+          transforms, gradients, and shadows.
+        </p>
+      </section>
+
+      <section class="experience" aria-label="Interactive depth demo">
+        <div class="stage-card">
+          <div class="stage-meta">
+            <p>Live object</p>
+            <span>Simulated z-axis volume</span>
+          </div>
+
+          <div class="viewport">
+            <div class="depth-object" id="depth-object" aria-hidden="true">
+              <div class="face face-top"></div>
+              <div class="face face-front"></div>
+              <div class="face face-side"></div>
+              <div class="glow glow-a"></div>
+              <div class="glow glow-b"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="control-card">
+          <div class="stage-meta">
+            <p>Controls</p>
+            <span>Shape the illusion</span>
+          </div>
+
+          <form class="controls" id="controls">
+            <label class="control">
+              <span>Width</span>
+              <input
+                id="size"
+                name="size"
+                type="range"
+                min="160"
+                max="340"
+                value="240"
+              />
+              <output for="size" id="size-value">240px</output>
+            </label>
+
+            <label class="control">
+              <span>Depth</span>
+              <input
+                id="depth"
+                name="depth"
+                type="range"
+                min="0"
+                max="160"
+                value="88"
+              />
+              <output for="depth" id="depth-value">88px</output>
+            </label>
+
+            <label class="control">
+              <span>Tilt</span>
+              <input
+                id="tilt"
+                name="tilt"
+                type="range"
+                min="18"
+                max="72"
+                value="42"
+              />
+              <output for="tilt" id="tilt-value">42deg</output>
+            </label>
+
+            <label class="control">
+              <span>Perspective</span>
+              <input
+                id="perspective"
+                name="perspective"
+                type="range"
+                min="400"
+                max="1800"
+                value="1200"
+              />
+              <output for="perspective" id="perspective-value">1200px</output>
+            </label>
+
+            <label class="control">
+              <span>Hue</span>
+              <input
+                id="hue"
+                name="hue"
+                type="range"
+                min="0"
+                max="360"
+                value="196"
+              />
+              <output for="hue" id="hue-value">196°</output>
+            </label>
+          </form>
+
+          <div class="snippet">
+            <div class="snippet-head">
+              <p>Pseudo API</p>
+              <span>Presentation only</span>
+            </div>
+            <pre><code id="code-snippet">.shape {
+  width: 240px;
+  aspect-ratio: 1;
+  depth: 88px;
+}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="reference-archive" aria-labelledby="reference-archive-title">
+        <div class="archive-heading">
+          <p class="eyebrow">Reference archive</p>
+          <h2 id="reference-archive-title">Three ways CSS can imply depth without a real <code>depth</code> property.</h2>
+          <p class="archive-note">
+            Standards-wise, this demo is deliberately a visual illusion. The Immersive Web
+            DOM overlays discussion makes it clear that ordinary DOM is not really meant to sit
+            inside a true 3D scene, so this page leans on camera tricks, shadows, and transforms instead.
+          </p>
+        </div>
+
+        <div class="principles-strip" aria-label="Depth principles">
+          <div class="principle-pill">Consistent light direction</div>
+          <div class="principle-pill">Defined elevation scale</div>
+          <div class="principle-pill">Subtle gradients over heavy chrome</div>
+          <div class="principle-pill">Ambient occlusion for floating surfaces</div>
+          <div class="principle-pill">Motion kept calm and optional</div>
+        </div>
+
+        <div class="archive-grid">
+          <article class="reference-card">
+            <div class="reference-preview preview-cube" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">Geoff Graham • Oct 25, 2023</p>
+            <h3>A conceptual z-axis API</h3>
+            <p>
+              The anchor idea for this page: imagine <code>depth</code> behaving like
+              width for the z-axis, then fake the result with layered faces and transforms.
+            </p>
+            <a href="https://geoffgraham.me/a-css-property-for-creating-depth/" target="_blank" rel="noreferrer">Open article</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-shadow" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">HackerNoon • Mar 10, 2022</p>
+            <h3>Shadow generators as a design archive</h3>
+            <p>
+              Useful for archiving practical shadow recipes: soft elevation, ambient glow,
+              and exaggerated cast shadows that make flat UI feel spatial.
+            </p>
+            <a href="https://hackernoon.com/add-depth-to-your-web-design-using-css-shadow-generators" target="_blank" rel="noreferrer">Open article</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-stackoverflow" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">Stack Overflow • Jan 18, 2019</p>
+            <h3>The classic layered box-shadow answer</h3>
+            <p>
+              A practical baseline: combine a soft all-around shadow with a slightly offset directional one
+              so the element gets both separation and a clear light source.
+            </p>
+            <a href="https://stackoverflow.com/questions/54253830/give-divs-depth-with-css-box-shadow-property" target="_blank" rel="noreferrer">Open thread</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-neo" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">DEV • Feb 7, 2020</p>
+            <h3>Layered shadows, transitions, and neomorphism</h3>
+            <p>
+              A strong reminder that depth is also interaction: stacked shadows, hover shifts,
+              and inset lighting can make surfaces feel pressed, lifted, or floating.
+            </p>
+            <a href="https://dev.to/adriantwarog/using-css-box-shadow-s-to-create-3d-depth-transitions-and-neomorphism-57o5" target="_blank" rel="noreferrer">Open article</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-dof" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">Reddit thread</p>
+            <h3>Simulated depth of field</h3>
+            <p>
+              Interesting as a motion and focus study: staged blur can make layers feel
+              nearer or farther away, especially when it follows hover instead of looping constantly.
+            </p>
+            <a href="https://www.reddit.com/r/web_design/comments/5uk4g4/simulating_depth_of_field_with_css/" target="_blank" rel="noreferrer">Open thread</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-perspective" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">MDN reference</p>
+            <h3><code>perspective</code> as camera distance</h3>
+            <p>
+              The core CSS primitive behind this demo’s stage. Smaller values intensify the 3D effect,
+              larger values flatten it, so it deserves its own live control.
+            </p>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/perspective" target="_blank" rel="noreferrer">Open docs</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-foundation" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">HTML Goodies • Mar 2, 2013</p>
+            <h3>Foundational CSS 3D transforms</h3>
+            <p>
+              An early, still-relevant bridge from flat layout to spatial illusion: use
+              <code>perspective</code>, <code>rotateX</code>, <code>rotateY</code>, and
+              <code>translateZ()</code> to make 2D surfaces behave like objects in depth.
+            </p>
+            <a href="https://www.htmlgoodies.com/html5/css-3d-transform/" target="_blank" rel="noreferrer">Open article</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-webgl" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">Codrops • Feb 20, 2019</p>
+            <h3>WebGL as the advanced route</h3>
+            <p>
+              Not part of this v1, but it’s the clearest upgrade path when CSS illusions stop being enough
+              and image depth maps or mesh-based parallax start to matter.
+            </p>
+            <a href="https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/" target="_blank" rel="noreferrer">Open article</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-zscale" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">Webflow University</p>
+            <h3>Z-scale for exaggerated motion</h3>
+            <p>
+              A useful interaction pattern: pushing elements along the z-axis on hover can make
+              cards feel like they burst forward even when the underlying geometry is simple.
+            </p>
+            <a href="https://university.webflow.com/videos/exaggerate-depth-using-z-scale" target="_blank" rel="noreferrer">Open lesson</a>
+          </article>
+
+          <article class="reference-card">
+            <div class="reference-preview preview-systems" aria-hidden="true">
+              <span></span>
+            </div>
+            <p class="reference-tag">Design Systems Collective • Jul 5, 2025</p>
+            <h3>Depth as a system, not decoration</h3>
+            <p>
+              The best framing for the whole page: use spatial cues to clarify hierarchy and interaction,
+              then keep them subtle, consistent, accessible, and performance-safe.
+            </p>
+            <a href="https://www.designsystemscollective.com/beyond-flat-design-how-to-add-spatial-depth-to-web-interfaces-without-overcomplicating-ux-ef7884091b57" target="_blank" rel="noreferrer">Open article</a>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
