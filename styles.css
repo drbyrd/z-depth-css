@@ -324,6 +324,15 @@ select {
   padding: 1.15rem;
 }
 
+.hero-copy,
+.controls-panel,
+.preview-panel,
+.snippet-panel,
+.workspace > *,
+.snippet-grid > * {
+  min-width: 0;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: minmax(310px, 0.82fr) minmax(0, 1.18fr);
@@ -386,6 +395,7 @@ select {
 .control input[type="range"] {
   grid-column: 1 / -1;
   width: 100%;
+  min-height: 1.75rem;
   accent-color: var(--accent);
 }
 
@@ -535,6 +545,8 @@ a:focus-visible {
 }
 
 pre {
+  width: 100%;
+  min-width: 0;
   max-height: 430px;
   margin: 0;
   overflow: auto;
@@ -662,5 +674,9 @@ pre {
 
   .depth-surface {
     width: min(var(--depth-sol-width), calc(100vw - 3.5rem));
+  }
+
+  .snippet-head {
+    flex-wrap: wrap;
   }
 }
