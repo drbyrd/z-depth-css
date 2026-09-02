@@ -19,6 +19,8 @@ Date: 2026-09-02
 - `8a9fa8b` - Document sibling bridge integration
 - `38f9394` - Add depth-sol verification harness
 - `3df84fb` - Fix responsive playground constraints
+- `7208f95` - Record depth-sol validation evidence
+- `beb2128` - Polish local browser asset hygiene
 
 ## Automated Verification
 
