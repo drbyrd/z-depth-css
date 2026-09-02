@@ -2,13 +2,15 @@
 
 ## Purpose
 
-This project defines a browser-safe authoring contract that can later be interpreted by a spatial runtime without changing the authored intent.
+This project defines a versioned browser-safe authoring contract that can later be interpreted by a spatial runtime without changing the authored intent.
 
 - In flat browsers, `depth` changes shadow, lift, occlusion, and lighting cues.
 - In spatial runtimes, the same `depth` value may become real geometry depth.
 - `aframe-bootstrap` remains responsible for scene-native UI primitives and interaction, while this contract remains document-level and declarative.
 
 ## Authoring Contract
+
+Current version: `depth-sol/0.2`
 
 ### Document Light
 
@@ -134,6 +136,29 @@ The demo uses that utility directly, so the spatial output shown on the page is 
 
 ## Bridge Module API
 
+### `createDepthSolContract(options)`
+
+Normalizes one document light and one or more surfaces into a versioned contract.
+
+Returned shape:
+
+```js
+{
+  version: "depth-sol/0.2",
+  sol: { x, y, z, size, color, axes },
+  surfaces: [{ id, label, widthPx, aspectRatio, depthPx, hue, variant }]
+}
+```
+
+### `createBridgeModels(contract, options)`
+
+Converts every surface in a contract into a bridge model.
+
+Optional options:
+
+- `scale`, default `1000`
+- `sceneOrigin`, default `{ x: 0, y: 1.6, z: -2.5 }`
+
 ### `pxToMeters(value, scale)`
 
 Converts CSS-like pixel values into scene units.
@@ -144,7 +169,7 @@ Converts CSS-like pixel values into scene units.
 
 ### `createBridgeModel(options)`
 
-Builds the shared model used by both formatted snippets.
+Builds the shared model used by both formatted snippets for a single surface. This remains as a convenience wrapper around `createDepthSolContract(...)` and `createBridgeModels(...)`.
 
 Required options:
 
@@ -165,6 +190,26 @@ Returned model sections:
 - `browser`: flat-browser shadow and lift hints
 - `runtime`: normalized light, geometry, material, and shadow data
 
+### `parseDepthDeclaration(cssText)`
+
+Parses a small declaration block containing `width`, `aspect-ratio`, and `depth`. The current parser only accepts pixel lengths for `width` and `depth`; unsupported values resolve to documented defaults.
+
+### `parseSolElement(element)`
+
+Reads a DOM-like element with `getAttribute(name)` and returns a normalized `sol` object.
+
+### `parseDepthSolDocument(root)`
+
+Reads a DOM root for one `<sol>` and any `[data-depth-sol-surface]` elements. The helper is intended for browser-side progressive enhancement.
+
+### `getCssCustomProperties(model)`
+
+Returns the flat-browser fallback custom properties for one bridge model.
+
+### `applyDepthSolCssVars(target, model)`
+
+Applies the generated custom properties to any element with a `style.setProperty(...)` API.
+
 ### `formatSourceContract(model)`
 
 Formats the source contract as a readable `<sol>` element plus `.surface` CSS block.
@@ -173,7 +218,32 @@ Formats the source contract as a readable `<sol>` element plus `.surface` CSS bl
 
 Formats the runtime section as an A-Frame-shaped snippet with one light entity and one box.
 
-The formatted output is documentation-oriented. It is not a complete scene, parser, runtime package, or A-Frame component.
+The formatted output is documentation-oriented. It is not a complete scene, runtime package, or A-Frame component.
+
+### `formatBridgeJson(model)`
+
+Serializes the normalized source, browser fallback, and A-Frame-shaped runtime data for consumers that prefer data over markup.
+
+## Sibling Consumer Contract
+
+### A-Frame Bootstrap
+
+Recommended stable path:
+
+- import `bridge.js` as an optional companion module
+- call `createBridgeModels(contract)`
+- map `model.runtime.box.width`, `height`, `depth`, `position`, `material`, and `shadow` onto existing `a-ui-*` primitives or scene entities
+- keep A-Frame itself loaded by the consuming page
+- preserve the current A-Frame Bootstrap primitive API as the owner of scene-native interaction and theme behavior
+
+### A-Frame Reader
+
+Recommended stable path:
+
+- preserve article panes as normal HTML with `data-depth-sol-surface`
+- use `applyDepthSolCssVars(...)` for the flat archive page
+- use `formatBridgeJson(...)` or the raw bridge model for any VR reader view
+- avoid requiring the archive page to initialize WebGL or WebXR
 
 ## Non-Goals
 

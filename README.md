@@ -13,7 +13,7 @@ The idea is simple:
 - in a normal browser, those semantics stay browser-safe and primarily affect shadow, lift, occlusion, and light color
 - in a spatial runtime, the same authored values can be mapped into real geometry and light placement
 
-This is not a standards proposal, a production library, or a framework. It is a compact spec-style experiment with a live demo and a bridge model.
+This is not a standards proposal, a production library, or a framework. It is a compact browser kit with a live playground, a documented authoring contract, and a deterministic bridge model.
 
 ## Relationship to aframe-bootstrap
 
@@ -72,6 +72,7 @@ The bridge idea is that the same authored contract can be interpreted by a spati
 This repo includes:
 
 - [`bridge-spec.md`](./bridge-spec.md): the written bridge spec
+- [`INTEGRATION.md`](./INTEGRATION.md): concise sibling-consumer contract
 - [`bridge.js`](./bridge.js): a small proof-of-concept translator
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): internal structure and data flow
 - [`AUTHORING.md`](./AUTHORING.md): the authoring model in plain language
@@ -89,17 +90,37 @@ That lets a runtime map:
 - `depth` -> actual box depth
 - `<sol>` -> scene light position and color
 
-## Current Implementation
+## Browser Kit API
 
-The demo is dependency-free and intentionally has no build step.
+The kit is dependency-free and intentionally small. Import the browser-safe ES module directly:
+
+```js
+import {
+  applyDepthSolCssVars,
+  createBridgeModel,
+  createBridgeModels,
+  createDepthSolContract,
+  formatAframeBridge,
+  formatBridgeJson,
+  formatCssFallback,
+  formatSourceContract,
+  parseDepthDeclaration,
+  parseDepthSolDocument,
+} from "./bridge.js";
+```
+
+Use `createBridgeModel(...)` for one surface, or `createDepthSolContract(...)` plus `createBridgeModels(...)` for several surfaces. Use `applyDepthSolCssVars(...)` when the flat page should receive the generated fallback custom properties.
+
+## Current Implementation
 
 - The page is authored as static HTML and loaded from `index.html`.
 - CSS custom properties hold the live contract values and flat-browser rendering outputs.
-- `script.js` reads the controls, updates the CSS variables, and asks `bridge.js` to regenerate the source and runtime snippets.
-- `bridge.js` is a browser ES module. Serve the project locally so module imports work consistently across browsers.
+- `script.js` reads controls and editable authoring text, updates CSS variables, manages empty/error/reset/copy states, and asks `bridge.js` to regenerate source, CSS, JSON, and runtime snippets.
+- `bridge.js` is a browser ES module with parser helpers, normalizers, CSS variable generation, JSON output, and A-Frame-shaped output. Serve the project locally so module imports work consistently across browsers.
+- `package.json` provides the local test and validation scripts.
 - `social-preview.svg` is a hand-authored social preview asset referenced by the page metadata.
 
-The current proof of concept models one surface, one document light, one fixed scale, and one A-Frame-shaped runtime target.
+The current proof of concept models one document light, multiple practical surface presets, one fixed default scale, and A-Frame-shaped runtime targets that can be consumed without making either sibling project a hard dependency.
 
 ## Files
 
@@ -107,6 +128,9 @@ The current proof of concept models one surface, one document light, one fixed s
 - [`styles.css`](./styles.css): visual system and flat-browser fallback rendering
 - [`script.js`](./script.js): live controls and bridge output wiring
 - [`bridge.js`](./bridge.js): proof-of-concept translator
+- [`package.json`](./package.json): local verification scripts
+- [`tests/`](./tests/): Node-based bridge, parser, API, and static smoke tests
+- [`INTEGRATION.md`](./INTEGRATION.md): short contract for sibling consumers
 - [`bridge-spec.md`](./bridge-spec.md): deeper bridge notes and mapping rules
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): structure, responsibilities, and data flow
 - [`AUTHORING.md`](./AUTHORING.md): authoring contract explained without implementation detail
@@ -144,12 +168,20 @@ Some browsers block module imports from `file://`, so opening `index.html` direc
 
 ## Verification
 
-There is no package manager, dependency install, or automated test runner yet.
+There is no dependency install or bundling step.
 
 Useful checks:
 
 ```sh
 git status --short --branch
+```
+
+```sh
+npm test
+```
+
+```sh
+npm run verify
 ```
 
 ```sh
@@ -160,8 +192,12 @@ Manual browser checks:
 
 - the page loads without console errors from the local server
 - each range control updates its output value
+- changing the preset updates copy, dimensions, fallback cues, and bridge output
+- clearing authoring text shows the empty state
+- malformed authoring text shows a parse error without breaking the page
+- copy buttons report success or a recoverable copy error
 - the browser surface changes shadow, glow, size, and color as controls move
-- the authoring snippet and A-Frame snippet update from the same values
+- the authoring, CSS, JSON, and A-Frame snippets update from the same values
 - the layout remains readable on desktop and mobile widths
 
 ## Public Positioning
@@ -189,8 +225,7 @@ Recommended social preview summary:
 
 ## Modest Roadmap
 
-- Try a second surface type beyond a single card
-- Add a tiny parser prototype for reading `depth` and `<sol>` from authored markup
+- Expand the parser prototype beyond the current small declaration reader
 - Experiment with an A-Frame-side consumer that reads the bridge model directly
 - Explore how multiple surfaces and multiple light sources should behave
 

@@ -38,6 +38,8 @@ Recommended checks:
 - load `http://127.0.0.1:4173/`
 - move every control and confirm the visible surface and snippets update
 - run `gitleaks detect --redact --source .` if gitleaks is available
+- run `npm test`
+- run `npm run verify` before committing behavior changes
 - confirm `git status --short --branch` contains only intentional changes
 
 ## Documentation Expectations

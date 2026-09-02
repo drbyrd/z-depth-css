@@ -13,14 +13,17 @@ The repo has three layers:
 1. **Authoring contract**
    - `depth` describes semantic height into space
    - `<sol>` describes a document-level light source
+   - `depth-sol/0.2` is the current contract version
 
 2. **Flat-browser presentation**
    - the page stays planar
    - the contract is interpreted as shadow, lift, occlusion, glow, and color cues
+   - CSS custom properties keep the fallback easy to inspect and override
 
 3. **Spatial bridge**
    - the same input values can be normalized into scene units
    - the output can be emitted as A-Frame-style geometry and light data
+   - sibling A-Frame projects can consume the model without depending on this repo
 
 ## File Responsibilities
 
@@ -32,9 +35,9 @@ Responsibilities:
 
 - present the concept in public-facing language
 - expose the controls for `depth` and `sol`
-- show the authored contract snippet
-- show the generated A-Frame bridge output
-- provide the documentation-like sections that explain intent
+- show the authored contract, CSS fallback, JSON, and A-Frame bridge output
+- provide copy controls, example presets, reset behavior, and empty/error states
+- provide documentation-like sections that explain intent and integration boundaries
 
 ### `styles.css`
 
@@ -46,6 +49,7 @@ Responsibilities:
 - render the depth-aware surface as a flat object
 - convert bridge-related values into browser-safe visual cues
 - maintain readable, stable page chrome while the demo surface changes color
+- preserve responsive, keyboard-visible, and reduced-motion behavior
 
 ### `script.js`
 
@@ -57,7 +61,8 @@ Responsibilities:
 - update CSS custom properties for the live demo
 - derive browser-facing shadow and light values
 - build the current bridge model
-- keep the source contract snippet and runtime snippet in sync
+- keep all output snippets in sync
+- manage preset, reset, empty, parse-error, and copy-feedback states
 
 ### `bridge.js`
 
@@ -66,9 +71,33 @@ The proof-of-concept translator.
 Responsibilities:
 
 - normalize authoring values into a structured bridge model
+- expose `depth-sol/0.2` as the current contract version
+- parse small `depth` declarations and DOM-like `<sol>` elements
 - convert pixel values into scene units
-- calculate runtime light and box properties
-- emit formatted contract and runtime snippet strings
+- calculate flat-browser custom properties
+- calculate runtime light and geometry properties
+- emit formatted contract, CSS, JSON, and A-Frame-shaped strings
+
+### `package.json`
+
+The verification entrypoint.
+
+Responsibilities:
+
+- keep the project dependency-free
+- expose `npm test`, `npm run validate`, `npm run verify`, and `npm run serve`
+- avoid introducing a bundler for a static browser module
+
+### `tests/`
+
+The automated proof layer.
+
+Responsibilities:
+
+- verify bridge math, parser helpers, normalizers, and formatters
+- verify the static page contains the expected consumer controls and states
+- verify public copy avoids private process language
+- verify responsive and accessibility hooks are present
 
 ### `bridge-spec.md`
 
@@ -89,8 +118,8 @@ The current demo follows this sequence:
 2. `script.js` reads the current values
 3. CSS custom properties are updated for the flat-browser rendering
 4. `bridge.js` builds a normalized bridge model from the same values
-5. The authored contract snippet is regenerated
-6. The A-Frame runtime snippet is regenerated
+5. The authored contract, CSS custom properties, JSON, and A-Frame runtime snippets are regenerated
+6. Copy, empty, and error states stay local to the browser
 
 That means the visible 2D effect and the example 3D output are always derived from the same source values.
 
@@ -104,6 +133,7 @@ Runtime expectations:
 - load `index.html`
 - let `script.js` import `bridge.js`
 - keep all generated display snippets in browser memory rather than writing files
+- run `npm test` for Node-based verification
 
 There is no server-side code, persistence layer, package install, or deploy-specific configuration in the current repo.
 
@@ -116,6 +146,7 @@ From those values, the demo derives:
 - CSS custom properties for the browser rendering
 - a source contract string for `depth` and `<sol>`
 - a normalized bridge model
+- a JSON representation of that bridge model
 - an A-Frame-shaped runtime snippet
 
 The generated snippets are explanatory output. They are not saved back into source files.
@@ -124,8 +155,7 @@ The generated snippets are explanatory output. They are not saved back into sour
 
 This repo intentionally avoids:
 
-- package structure
-- reusable public API design
+- dependency packaging
 - runtime plugin architecture
 - parser completeness
 - scene graph abstractions

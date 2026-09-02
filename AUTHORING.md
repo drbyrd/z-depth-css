@@ -1,10 +1,10 @@
 # Authoring Model
 
-This document explains the small semantic contract explored by `depth-sol`.
+This document explains the versioned semantic contract explored by `depth-sol`.
 
 ## Overview
 
-The contract has two main parts:
+The current contract version is `depth-sol/0.2`. It has two main parts:
 
 - `depth` on a surface-like element
 - a document-level `<sol>` light source
@@ -19,9 +19,9 @@ Example:
 
 ```css
 .surface {
-  width: 252px;
-  aspect-ratio: 1;
-  depth: 88px;
+  width: 304px;
+  aspect-ratio: 1.24;
+  depth: 76px;
 }
 ```
 
@@ -95,15 +95,18 @@ The live demo currently exposes:
 - `sol z`
 - `sol size`
 - `sol hue`
+- editable authoring text
+- source, CSS custom-property, JSON, and A-Frame output tabs
+- reset, empty, parse-error, and copy-feedback states
 
 These are not meant to be the final or only possible authoring API. They are an interactive way to inspect how the contract behaves.
 
 ## Current Assumptions
 
-- one surface
+- one active playground surface at a time
 - one light source
 - one fixed bridge scale
-- one primary spatial runtime target shape: an A-Frame box plus a point light
+- one primary spatial runtime target shape at a time: an A-Frame box or an A-Frame Bootstrap-style primitive plus a point light
 
 ## Units and Defaults
 
@@ -118,12 +121,12 @@ For bridge output, the default normalization is `1000px = 1m`.
 
 ## Authoring Pattern
 
-A future parser would likely read two things:
+The current parser prototype reads two things:
 
 1. A document-level light declaration.
 2. One or more surface declarations that opt into semantic depth.
 
-The current demo does not implement parsing. The controls stand in for authored values so the mapping can be inspected interactively.
+The parser is deliberately conservative. It supports simple pixel lengths, numeric or slash-based aspect ratios, and one `<sol>` declaration. Unsupported values fall back instead of breaking layout.
 
 ## Compatibility Principle
 
@@ -135,6 +138,25 @@ If a browser or runtime does not support spatial interpretation, the safe fallba
 - use `depth` as an elevation hint
 - use `<sol>` as a light and shadow hint
 - avoid breaking layout or interaction
+
+## CSS Custom Properties
+
+`bridge.js` can generate and apply fallback variables with `applyDepthSolCssVars(target, model)`.
+
+Current fallback variables include:
+
+- `--depth-sol-width`
+- `--depth-sol-height`
+- `--depth-sol-depth`
+- `--depth-sol-hue`
+- `--depth-sol-light-color`
+- `--depth-sol-cast-x`
+- `--depth-sol-cast-y`
+- `--depth-sol-cast-blur`
+- `--depth-sol-cast-spread`
+- `--depth-sol-ambient-blur`
+- `--depth-sol-shadow-color`
+- `--depth-sol-highlight-alpha`
 
 ## Non-Goals
 
