@@ -3,61 +3,117 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Depth, Simulated</title>
+    <title>Depth as Metadata</title>
+    <meta
+      name="description"
+      content="A small concept project exploring a flat-web depth semantic using depth and a document light source called sol, with a bridge to A-Frame and XR runtimes."
+    />
+    <meta property="og:title" content="depth-sol" />
+    <meta
+      property="og:description"
+      content="An experimental flat-web depth semantic: depth and sol as browser-safe spatial metadata with an A-Frame bridge."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="social-preview.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="depth-sol" />
+    <meta
+      name="twitter:description"
+      content="A flat-web spatial semantic experiment using depth and sol for browser-safe cues with a path to XR rendering."
+    />
+    <meta name="twitter:image" content="social-preview.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <main class="page-shell">
       <section class="intro">
-        <p class="eyebrow">Concept demo</p>
-        <h1>What if CSS had a real sense of depth?</h1>
+        <p class="eyebrow">Spec-style concept project</p>
+        <h1>Keep depth semantic in HTML. Let spatial runtimes decide how much of it becomes visible.</h1>
         <p class="lede">
-          This playground treats <code>depth</code> like a missing sibling to
-          <code>width</code> and <code>aspect-ratio</code>, then fakes it with
-          transforms, gradients, and shadows.
+          <code>depth-sol</code> complements <code>aframe-bootstrap</code> instead of competing
+          with it. In a normal browser, <code>depth</code> behaves like browser-safe spatial metadata
+          shaped by a document light source called <code>sol</code>. In a VR-capable runtime,
+          the same values can translate into true volume and light placement.
         </p>
       </section>
 
-      <section class="experience" aria-label="Interactive depth demo">
+      <section class="alignment-band" aria-label="Relationship to aframe-bootstrap">
+        <article class="alignment-card">
+          <p class="eyebrow">A-Frame review</p>
+          <h2>What stays in <code>aframe-bootstrap</code></h2>
+          <p>
+            Native spatial UI primitives, tokens, interaction rules, and real scene composition
+            remain the job of the A-Frame library.
+          </p>
+        </article>
+        <article class="alignment-card">
+          <p class="eyebrow">This repo’s lane</p>
+          <h2>What this demo explores instead</h2>
+          <p>
+            A flat-web authoring contract where <code>depth</code> and <code>sol</code> are
+            document-level semantics that degrade gracefully to shadows, lighting hints, and
+            comfort-safe 2D cues.
+          </p>
+        </article>
+      </section>
+
+      <section class="experience" aria-label="Interactive depth contract demo">
         <div class="stage-card">
           <div class="stage-meta">
-            <p>Live object</p>
-            <span>Simulated z-axis volume</span>
+            <p>Browser output</p>
+            <span>Depth is not directly rendered here</span>
           </div>
 
           <div class="viewport">
-            <div class="depth-object" id="depth-object" aria-hidden="true">
-              <div class="face face-top"></div>
-              <div class="face face-front"></div>
-              <div class="face face-side"></div>
-              <div class="glow glow-a"></div>
-              <div class="glow glow-b"></div>
+            <div class="browser-surface">
+              <div class="shadow-plane" aria-hidden="true"></div>
+              <article class="flat-object" id="flat-object">
+                <div class="flat-object__cap"></div>
+                <div class="flat-object__body">
+                  <p class="flat-object__label">DOM card</p>
+                  <h3>Depth-aware surface</h3>
+                  <p>
+                    On a regular page, this stays flat. Its <code>depth</code> value only changes
+                    how the shadow falls from <code>sol</code>.
+                  </p>
+                </div>
+              </article>
+              <div class="stage-note">
+                <div>
+                  <strong>2D browser:</strong>
+                  shadow, lift, light color, and spatial hints
+                </div>
+                <div>
+                  <strong>XR browser or VR screen:</strong>
+                  same authored contract could expose real extrusion
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="control-card">
           <div class="stage-meta">
-            <p>Controls</p>
-            <span>Shape the illusion</span>
+            <p>Document contract</p>
+            <span><code>depth</code> + <code>sol</code></span>
           </div>
 
           <form class="controls" id="controls">
             <label class="control">
-              <span>Width</span>
+              <span>Surface width</span>
               <input
                 id="size"
                 name="size"
                 type="range"
-                min="160"
-                max="340"
-                value="240"
+                min="180"
+                max="360"
+                value="252"
               />
-              <output for="size" id="size-value">240px</output>
+              <output for="size" id="size-value">252px</output>
             </label>
 
             <label class="control">
-              <span>Depth</span>
+              <span>Depth metadata</span>
               <input
                 id="depth"
                 name="depth"
@@ -70,33 +126,59 @@
             </label>
 
             <label class="control">
-              <span>Tilt</span>
+              <span>sol x</span>
               <input
-                id="tilt"
-                name="tilt"
+                id="light-x"
+                name="lightX"
                 type="range"
-                min="18"
-                max="72"
-                value="42"
+                min="-180"
+                max="180"
+                value="44"
               />
-              <output for="tilt" id="tilt-value">42deg</output>
+              <output for="light-x" id="light-x-value">44</output>
             </label>
 
             <label class="control">
-              <span>Perspective</span>
+              <span>sol y</span>
               <input
-                id="perspective"
-                name="perspective"
+                id="light-y"
+                name="lightY"
                 type="range"
-                min="400"
-                max="1800"
-                value="1200"
+                min="-180"
+                max="180"
+                value="-36"
               />
-              <output for="perspective" id="perspective-value">1200px</output>
+              <output for="light-y" id="light-y-value">-36</output>
             </label>
 
             <label class="control">
-              <span>Hue</span>
+              <span>sol z</span>
+              <input
+                id="light-z"
+                name="lightZ"
+                type="range"
+                min="20"
+                max="240"
+                value="116"
+              />
+              <output for="light-z" id="light-z-value">116</output>
+            </label>
+
+            <label class="control">
+              <span>sol size</span>
+              <input
+                id="light-size"
+                name="lightSize"
+                type="range"
+                min="16"
+                max="120"
+                value="58"
+              />
+              <output for="light-size" id="light-size-value">58px</output>
+            </label>
+
+            <label class="control">
+              <span>sol hue</span>
               <input
                 id="hue"
                 name="hue"
@@ -111,11 +193,13 @@
 
           <div class="snippet">
             <div class="snippet-head">
-              <p>Pseudo API</p>
-              <span>Presentation only</span>
+              <p>Proposed authoring shape</p>
+              <span>Companion spec, not engine behavior</span>
             </div>
-            <pre><code id="code-snippet">.shape {
-  width: 240px;
+            <pre><code id="code-snippet">&lt;sol x="44" y="-36" z="116" size="58" color="hsl(196 90% 64%)" axes="xyz"&gt;&lt;/sol&gt;
+
+.surface {
+  width: 252px;
   aspect-ratio: 1;
   depth: 88px;
 }</code></pre>
@@ -123,23 +207,102 @@
         </div>
       </section>
 
+      <section class="translation-grid" aria-label="Translation model">
+        <article class="translation-card">
+          <p class="eyebrow">Normal browser</p>
+          <h2>Flat page behavior</h2>
+          <p>
+            <code>depth</code> affects elevation, occlusion, and shadow softness. The element
+            remains fundamentally planar.
+          </p>
+        </article>
+        <article class="translation-card">
+          <p class="eyebrow">Spatial runtime</p>
+          <h2>Optional true extrusion</h2>
+          <p>
+            A VR browser, WebXR scene, or a VR screen that renders the page could choose to map
+            the same semantic depth value into actual geometry.
+          </p>
+        </article>
+        <article class="translation-card">
+          <p class="eyebrow">Compatibility</p>
+          <h2>Why this complements A-Frame</h2>
+          <p>
+            The page-level contract stays declarative while <code>aframe-bootstrap</code> keeps
+            owning scene-native components, tokens, and interaction semantics.
+          </p>
+        </article>
+      </section>
+
+      <section class="bridge-spec" aria-labelledby="bridge-spec-title">
+        <div class="archive-heading">
+          <p class="eyebrow">Bridge spec</p>
+          <h2 id="bridge-spec-title">One authoring contract, two render paths.</h2>
+          <p class="archive-note">
+            The companion layer becomes useful when it can actually translate. This bridge treats
+            the authored page as the source of truth, then emits either a flat-browser shadow model
+            or a scene-native A-Frame interpretation from the same semantic inputs.
+          </p>
+        </div>
+
+        <div class="bridge-grid">
+          <article class="bridge-card">
+            <p class="reference-tag">Authoring input</p>
+            <h3>Document semantics</h3>
+            <pre><code id="bridge-source-snippet">&lt;sol x="44" y="-36" z="116" size="58" color="hsl(196 90% 64%)" axes="xyz"&gt;&lt;/sol&gt;
+
+.surface {
+  width: 252px;
+  aspect-ratio: 1;
+  depth: 88px;
+}</code></pre>
+          </article>
+
+          <article class="bridge-card">
+            <p class="reference-tag">Spatial output</p>
+            <h3>A-Frame bridge target</h3>
+            <pre><code id="bridge-runtime-snippet">&lt;a-entity position="0 1.6 -2.5"&gt;
+  &lt;a-entity
+    light="type: point; color: hsl(196 90% 64%); intensity: 1; distance: 5.8; decay: 1.4"
+    position="0.44 -0.36 1.16"&gt;
+  &lt;/a-entity&gt;
+
+  &lt;a-box
+    width="0.252"
+    height="0.252"
+    depth="0.088"
+    position="0 0 0.044"
+    shadow="cast: true; receive: true"&gt;
+  &lt;/a-box&gt;
+&lt;/a-entity&gt;</code></pre>
+          </article>
+        </div>
+
+        <div class="principles-strip" aria-label="Bridge rules">
+          <div class="principle-pill">Default bridge scale: 1000px = 1m</div>
+          <div class="principle-pill">Front face stays faithful to the original page</div>
+          <div class="principle-pill">Depth shifts geometry by half its value on local z</div>
+          <div class="principle-pill">Flat browsers fall back to shadow instead of fake extrusion</div>
+        </div>
+      </section>
+
       <section class="reference-archive" aria-labelledby="reference-archive-title">
         <div class="archive-heading">
           <p class="eyebrow">Reference archive</p>
-          <h2 id="reference-archive-title">Three ways CSS can imply depth without a real <code>depth</code> property.</h2>
+          <h2 id="reference-archive-title">Depth cues now split cleanly between browser illusion and real spatial rendering.</h2>
           <p class="archive-note">
-            Standards-wise, this demo is deliberately a visual illusion. The Immersive Web
-            DOM overlays discussion makes it clear that ordinary DOM is not really meant to sit
-            inside a true 3D scene, so this page leans on camera tricks, shadows, and transforms instead.
+            The current synthesis is simple: shadows and lighting belong to the browser fallback,
+            while true volume belongs to spatial runtimes like A-Frame, WebGL, or WebXR. That
+            separation keeps this project aligned with the direction already being established next door.
           </p>
         </div>
 
         <div class="principles-strip" aria-label="Depth principles">
-          <div class="principle-pill">Consistent light direction</div>
-          <div class="principle-pill">Defined elevation scale</div>
-          <div class="principle-pill">Subtle gradients over heavy chrome</div>
-          <div class="principle-pill">Ambient occlusion for floating surfaces</div>
-          <div class="principle-pill">Motion kept calm and optional</div>
+          <div class="principle-pill">Use shadow as fallback, not fake geometry everywhere</div>
+          <div class="principle-pill">Keep light direction explicit</div>
+          <div class="principle-pill">Let semantics survive across 2D and XR</div>
+          <div class="principle-pill">Reserve real extrusion for spatial runtimes</div>
+          <div class="principle-pill">Avoid fighting the A-Frame library’s role</div>
         </div>
 
         <div class="archive-grid">
@@ -150,8 +313,8 @@
             <p class="reference-tag">Geoff Graham • Oct 25, 2023</p>
             <h3>A conceptual z-axis API</h3>
             <p>
-              The anchor idea for this page: imagine <code>depth</code> behaving like
-              width for the z-axis, then fake the result with layered faces and transforms.
+              The anchor idea for the contract itself: imagine <code>depth</code> as a first-class
+              semantic and let rendering strategies differ by environment.
             </p>
             <a href="https://geoffgraham.me/a-css-property-for-creating-depth/" target="_blank" rel="noreferrer">Open article</a>
           </article>
@@ -161,10 +324,10 @@
               <span></span>
             </div>
             <p class="reference-tag">HackerNoon • Mar 10, 2022</p>
-            <h3>Shadow generators as a design archive</h3>
+            <h3>Shadow generators as fallback tooling</h3>
             <p>
-              Useful for archiving practical shadow recipes: soft elevation, ambient glow,
-              and exaggerated cast shadows that make flat UI feel spatial.
+              Useful when the browser expression of depth is mostly shadow design rather than
+              visible extrusion.
             </p>
             <a href="https://hackernoon.com/add-depth-to-your-web-design-using-css-shadow-generators" target="_blank" rel="noreferrer">Open article</a>
           </article>
@@ -174,10 +337,9 @@
               <span></span>
             </div>
             <p class="reference-tag">Stack Overflow • Jan 18, 2019</p>
-            <h3>The classic layered box-shadow answer</h3>
+            <h3>Layered box-shadow baseline</h3>
             <p>
-              A practical baseline: combine a soft all-around shadow with a slightly offset directional one
-              so the element gets both separation and a clear light source.
+              A practical recipe for the 2D fallback path: soft ambient separation plus a directional cast shadow.
             </p>
             <a href="https://stackoverflow.com/questions/54253830/give-divs-depth-with-css-box-shadow-property" target="_blank" rel="noreferrer">Open thread</a>
           </article>
@@ -187,25 +349,12 @@
               <span></span>
             </div>
             <p class="reference-tag">DEV • Feb 7, 2020</p>
-            <h3>Layered shadows, transitions, and neomorphism</h3>
+            <h3>Interaction states still matter</h3>
             <p>
-              A strong reminder that depth is also interaction: stacked shadows, hover shifts,
-              and inset lighting can make surfaces feel pressed, lifted, or floating.
+              Depth is not only geometry. Hover, press, inset, and neomorphic lighting still help
+              communicate surface state in flat browsers.
             </p>
             <a href="https://dev.to/adriantwarog/using-css-box-shadow-s-to-create-3d-depth-transitions-and-neomorphism-57o5" target="_blank" rel="noreferrer">Open article</a>
-          </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-dof" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">Reddit thread</p>
-            <h3>Simulated depth of field</h3>
-            <p>
-              Interesting as a motion and focus study: staged blur can make layers feel
-              nearer or farther away, especially when it follows hover instead of looping constantly.
-            </p>
-            <a href="https://www.reddit.com/r/web_design/comments/5uk4g4/simulating_depth_of_field_with_css/" target="_blank" rel="noreferrer">Open thread</a>
           </article>
 
           <article class="reference-card">
@@ -213,10 +362,10 @@
               <span></span>
             </div>
             <p class="reference-tag">MDN reference</p>
-            <h3><code>perspective</code> as camera distance</h3>
+            <h3><code>perspective</code> still informs the camera model</h3>
             <p>
-              The core CSS primitive behind this demo’s stage. Smaller values intensify the 3D effect,
-              larger values flatten it, so it deserves its own live control.
+              Even if the browser presentation stays flat, the lighting and future spatial mapping
+              still benefit from a clear camera-space mental model.
             </p>
             <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/perspective" target="_blank" rel="noreferrer">Open docs</a>
           </article>
@@ -228,9 +377,7 @@
             <p class="reference-tag">HTML Goodies • Mar 2, 2013</p>
             <h3>Foundational CSS 3D transforms</h3>
             <p>
-              An early, still-relevant bridge from flat layout to spatial illusion: use
-              <code>perspective</code>, <code>rotateX</code>, <code>rotateY</code>, and
-              <code>translateZ()</code> to make 2D surfaces behave like objects in depth.
+              Historical context for how the web has been approximating depth long before a real semantic existed.
             </p>
             <a href="https://www.htmlgoodies.com/html5/css-3d-transform/" target="_blank" rel="noreferrer">Open article</a>
           </article>
@@ -240,10 +387,10 @@
               <span></span>
             </div>
             <p class="reference-tag">Codrops • Feb 20, 2019</p>
-            <h3>WebGL as the advanced route</h3>
+            <h3>WebGL as the actual geometry path</h3>
             <p>
-              Not part of this v1, but it’s the clearest upgrade path when CSS illusions stop being enough
-              and image depth maps or mesh-based parallax start to matter.
+              Once true depth matters visually, the rendering center of gravity shifts from CSS tricks
+              to meshes, textures, and camera systems.
             </p>
             <a href="https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/" target="_blank" rel="noreferrer">Open article</a>
           </article>
@@ -253,10 +400,9 @@
               <span></span>
             </div>
             <p class="reference-tag">Webflow University</p>
-            <h3>Z-scale for exaggerated motion</h3>
+            <h3>Z-scale as a behavior hint</h3>
             <p>
-              A useful interaction pattern: pushing elements along the z-axis on hover can make
-              cards feel like they burst forward even when the underlying geometry is simple.
+              A good reminder that motion can preview depth even when the normal resting state stays flat.
             </p>
             <a href="https://university.webflow.com/videos/exaggerate-depth-using-z-scale" target="_blank" rel="noreferrer">Open lesson</a>
           </article>
@@ -268,8 +414,8 @@
             <p class="reference-tag">Design Systems Collective • Jul 5, 2025</p>
             <h3>Depth as a system, not decoration</h3>
             <p>
-              The best framing for the whole page: use spatial cues to clarify hierarchy and interaction,
-              then keep them subtle, consistent, accessible, and performance-safe.
+              The strongest product framing for this repo: spatial cues should clarify hierarchy
+              and interaction, not become an uncontrolled visual effect.
             </p>
             <a href="https://www.designsystemscollective.com/beyond-flat-design-how-to-add-spatial-depth-to-web-interfaces-without-overcomplicating-ux-ef7884091b57" target="_blank" rel="noreferrer">Open article</a>
           </article>
@@ -277,6 +423,6 @@
       </section>
     </main>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
