@@ -76,6 +76,18 @@ Browser viewport checks:
 - `:focus-visible` styles are present
 - reduced-motion media query is present
 
+## Network Hygiene
+
+Final local server request check:
+
+- `GET /` returned 200
+- `GET /styles.css` returned 304
+- `GET /script.js` returned 304
+- `GET /bridge.js` returned 304
+- `GET /social-preview.svg` returned 304
+- favicon is declared as `social-preview.svg`
+- no final 404 requests observed
+
 ## Static Validation Path
 
 This project remains static and dependency-free. There is no bundler or deployment step. The production-like validation path is:
