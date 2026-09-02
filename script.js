@@ -1,117 +1,280 @@
-import { createBridgeModel, formatAframeBridge, formatSourceContract } from "./bridge.js";
+import {
+  applyDepthSolCssVars,
+  createBridgeModel,
+  formatAframeBridge,
+  formatBridgeJson,
+  formatCssFallback,
+  formatSourceContract,
+  parseDepthDeclaration,
+} from "./bridge.js";
 
 const root = document.documentElement;
 const controls = document.getElementById("controls");
-const snippet = document.getElementById("code-snippet");
-const bridgeSourceSnippet = document.getElementById("bridge-source-snippet");
-const bridgeRuntimeSnippet = document.getElementById("bridge-runtime-snippet");
+const preset = document.getElementById("preset");
+const statusMessage = document.getElementById("status-message");
+const authoringInput = document.getElementById("authoring-input");
+const demoSol = document.getElementById("demo-sol");
+const demoSurface = document.getElementById("demo-surface");
+const emptyState = document.getElementById("empty-state");
+const resetButton = document.getElementById("reset-button");
+const clearButton = document.getElementById("clear-button");
+const outputs = {
+  source: document.getElementById("source-output"),
+  css: document.getElementById("css-output"),
+  json: document.getElementById("json-output"),
+  aframe: document.getElementById("aframe-output"),
+};
 
-const fieldMap = {
+const fields = {
   size: {
-    cssVar: "--surface-size",
+    input: document.getElementById("size"),
     output: document.getElementById("size-value"),
     format: (value) => `${value}px`,
   },
   depth: {
-    cssVar: "--surface-depth",
+    input: document.getElementById("depth"),
     output: document.getElementById("depth-value"),
     format: (value) => `${value}px`,
   },
   lightX: {
-    cssVar: "--light-x",
+    input: document.getElementById("light-x"),
     output: document.getElementById("light-x-value"),
     format: (value) => `${value}`,
   },
   lightY: {
-    cssVar: "--light-y",
+    input: document.getElementById("light-y"),
     output: document.getElementById("light-y-value"),
     format: (value) => `${value}`,
   },
   lightZ: {
-    cssVar: "--light-z",
+    input: document.getElementById("light-z"),
     output: document.getElementById("light-z-value"),
     format: (value) => `${value}`,
   },
   lightSize: {
-    cssVar: "--light-size",
+    input: document.getElementById("light-size"),
     output: document.getElementById("light-size-value"),
     format: (value) => `${value}px`,
   },
   hue: {
-    cssVar: "--accent-hue",
+    input: document.getElementById("hue"),
     output: document.getElementById("hue-value"),
-    format: (value) => `${value}\u00b0`,
+    format: (value) => `${value}`,
   },
 };
 
-function clamp(value, min, max) {
-  return Math.min(Math.max(value, min), max);
+const presets = {
+  product: {
+    label: "Product card",
+    title: "Glass controller dock",
+    copy:
+      "A normal DOM card with depth-aware lighting. It remains readable, selectable, and touch friendly before any spatial runtime joins in.",
+    values: { size: 304, depth: 76, lightX: 38, lightY: -42, lightZ: 128, lightSize: 64, hue: 196 },
+    surface: { aspectRatio: 1.24, variant: "card" },
+  },
+  reader: {
+    label: "Reader pane",
+    title: "Archived chapter panel",
+    copy:
+      "A preserved reading surface can use depth as quiet hierarchy in HTML and later become a comfortable panel in a VR reader.",
+    values: { size: 360, depth: 44, lightX: -28, lightY: -64, lightZ: 148, lightSize: 72, hue: 48 },
+    surface: { aspectRatio: 1.7, variant: "reader" },
+  },
+  dashboard: {
+    label: "Dashboard tile",
+    title: "Signal summary",
+    copy:
+      "Status tiles keep their normal scan pattern while the depth value gives the bridge a stable elevation cue.",
+    values: { size: 276, depth: 116, lightX: 74, lightY: -28, lightZ: 104, lightSize: 54, hue: 154 },
+    surface: { aspectRatio: 1.08, variant: "metric" },
+  },
+  control: {
+    label: "A-Frame control",
+    title: "Bootstrap action surface",
+    copy:
+      "A semantic control can pass normalized width, height, depth, variant, and light hints into existing A-Frame primitives.",
+    values: { size: 252, depth: 92, lightX: -58, lightY: 32, lightZ: 118, lightSize: 48, hue: 278 },
+    surface: { aspectRatio: 1.38, variant: "control" },
+  },
+};
+
+function currentValues() {
+  return Object.fromEntries(Object.entries(fields).map(([name, field]) => [name, Number(field.input.value)]));
 }
 
-function updateDemo() {
-  const formData = new FormData(controls);
-  const size = Number(formData.get("size"));
-  const depth = Number(formData.get("depth"));
-  const lightX = Number(formData.get("lightX"));
-  const lightY = Number(formData.get("lightY"));
-  const lightZ = Number(formData.get("lightZ"));
-  const lightSize = Number(formData.get("lightSize"));
-  const hue = Number(formData.get("hue"));
-
-  Object.entries(fieldMap).forEach(([name, config]) => {
-    const rawValue = Number(formData.get(name));
-    config.output.value = config.format(rawValue);
-    root.style.setProperty(config.cssVar, config.format(rawValue));
+function setValues(values) {
+  Object.entries(values).forEach(([name, value]) => {
+    if (fields[name]) {
+      fields[name].input.value = value;
+    }
   });
+}
 
-  // Browser mode stays planar, so the controls first drive a set of
-  // shadow and glow hints rather than visible extrusion.
-  const castX = `${Math.round((-lightX * depth) / 160)}px`;
-  const castY = `${Math.round((-lightY * depth) / 160)}px`;
-  const castBlur = `${Math.round(depth * 0.42 + lightZ * 0.34)}px`;
-  const castSpread = `${Math.round(depth * -0.16)}px`;
-  const ambientBlur = `${Math.round(depth * 0.24 + lightSize * 0.18)}px`;
-  const surfaceHeight = `${Math.round(size * 0.72)}px`;
-  const glowAlpha = clamp(0.16 + lightZ / 420, 0.16, 0.48);
-  const shadowAlpha = clamp(0.22 + depth / 280, 0.22, 0.7);
+function syncOutputs(values) {
+  Object.entries(fields).forEach(([name, field]) => {
+    field.output.value = field.format(values[name]);
+  });
+}
 
-  root.style.setProperty("--cast-x", castX);
-  root.style.setProperty("--cast-y", castY);
-  root.style.setProperty("--cast-blur", castBlur);
-  root.style.setProperty("--cast-spread", castSpread);
-  root.style.setProperty("--ambient-blur", ambientBlur);
-  root.style.setProperty("--surface-height", surfaceHeight);
-  root.style.setProperty("--surface-hue", `${hue}`);
-  root.style.setProperty("--light-color", `hsla(${hue} 94% 70% / ${glowAlpha})`);
-  root.style.setProperty("--shadow-color", `hsla(${Math.round(hue * 0.18 + 220)} 72% 3% / ${shadowAlpha})`);
-  root.style.setProperty("--page-glow", `hsla(${hue} 82% 68% / ${clamp(glowAlpha * 0.42, 0.08, 0.18)})`);
-  root.style.setProperty("--accent-soft", `hsl(${hue} 70% 78%)`);
-  root.style.setProperty("--accent-line", `hsla(${hue} 82% 72% / 0.52)`);
+function createCurrentModel() {
+  const values = currentValues();
+  const selectedPreset = presets[preset.value] || presets.product;
 
-  // The same input values are then handed to the bridge utility so the
-  // runtime example always reflects the exact same authored contract.
-  const bridgeModel = createBridgeModel({
-    widthPx: size,
-    aspectRatio: 1,
-    depthPx: depth,
-    hue,
+  return createBridgeModel({
+    id: "demo-surface",
+    label: selectedPreset.label,
+    widthPx: values.size,
+    aspectRatio: selectedPreset.surface.aspectRatio,
+    depthPx: values.depth,
+    hue: values.hue,
+    variant: selectedPreset.surface.variant,
     sol: {
-      x: lightX,
-      y: lightY,
-      z: lightZ,
-      size: lightSize,
+      x: values.lightX,
+      y: values.lightY,
+      z: values.lightZ,
+      size: values.lightSize,
+      color: `hsl(${values.hue} 90% 64%)`,
       axes: "xyz",
     },
   });
-
-  const sourceContract = formatSourceContract(bridgeModel);
-  const runtimeBridge = formatAframeBridge(bridgeModel);
-
-  snippet.textContent = sourceContract;
-  bridgeSourceSnippet.textContent = sourceContract;
-  bridgeRuntimeSnippet.textContent = runtimeBridge;
 }
 
-controls.addEventListener("input", updateDemo);
+function applyModel(model, { updateAuthoring = true } = {}) {
+  const values = currentValues();
+  const selectedPreset = presets[preset.value] || presets.product;
 
-updateDemo();
+  syncOutputs(values);
+  applyDepthSolCssVars(root, model);
+  applyDepthSolCssVars(demoSurface, model);
+
+  demoSol.setAttribute("x", values.lightX);
+  demoSol.setAttribute("y", values.lightY);
+  demoSol.setAttribute("z", values.lightZ);
+  demoSol.setAttribute("size", values.lightSize);
+  demoSol.setAttribute("color", `hsl(${values.hue} 90% 64%)`);
+  demoSurface.setAttribute("depth", `${values.depth}px`);
+  demoSurface.style.width = `${values.size}px`;
+  demoSurface.style.aspectRatio = `${selectedPreset.surface.aspectRatio}`;
+  demoSurface.dataset.variant = selectedPreset.surface.variant;
+
+  document.getElementById("surface-label").textContent = selectedPreset.label;
+  document.getElementById("surface-title").textContent = selectedPreset.title;
+  document.getElementById("surface-copy").textContent = selectedPreset.copy;
+
+  outputs.source.textContent = formatSourceContract(model);
+  outputs.css.textContent = formatCssFallback(model);
+  outputs.json.textContent = formatBridgeJson(model);
+  outputs.aframe.textContent = formatAframeBridge(model);
+
+  if (updateAuthoring) {
+    authoringInput.value = formatSourceContract(model);
+  }
+
+  emptyState.hidden = true;
+  demoSurface.hidden = false;
+  statusMessage.textContent = "Ready.";
+  statusMessage.classList.remove("is-error");
+}
+
+function updatePlayground(options) {
+  applyModel(createCurrentModel(), options);
+}
+
+function loadPreset(name) {
+  const nextPreset = presets[name] || presets.product;
+  preset.value = name in presets ? name : "product";
+  setValues(nextPreset.values);
+  updatePlayground();
+}
+
+function clearAuthoring() {
+  authoringInput.value = "";
+  demoSurface.hidden = true;
+  emptyState.hidden = false;
+  statusMessage.textContent = "No contract loaded. Pick an example or reset to continue.";
+  statusMessage.classList.remove("is-error");
+}
+
+function applyAuthoringText() {
+  const value = authoringInput.value.trim();
+
+  if (!value) {
+    clearAuthoring();
+    return;
+  }
+
+  const solMatch = value.match(/<sol\s+([^>]+)>/i);
+  const cssMatch = value.match(/\{([^}]+)\}/);
+
+  if (!solMatch || !cssMatch) {
+    statusMessage.textContent = "The authoring text needs one <sol> element and one surface rule.";
+    statusMessage.classList.add("is-error");
+    return;
+  }
+
+  const attrs = Object.fromEntries(
+    Array.from(solMatch[1].matchAll(/([a-z-]+)="([^"]*)"/gi)).map(([, name, attrValue]) => [name, attrValue]),
+  );
+  const declaration = parseDepthDeclaration(cssMatch[1]);
+  const hue = Number((attrs.color || "").match(/hsl\((\d+)/i)?.[1] || fields.hue.input.value);
+
+  setValues({
+    size: declaration.widthPx,
+    depth: declaration.depthPx,
+    lightX: Number(attrs.x || fields.lightX.input.value),
+    lightY: Number(attrs.y || fields.lightY.input.value),
+    lightZ: Number(attrs.z || fields.lightZ.input.value),
+    lightSize: Number(attrs.size || fields.lightSize.input.value),
+    hue,
+  });
+
+  updatePlayground({ updateAuthoring: false });
+}
+
+controls.addEventListener("input", (event) => {
+  if (event.target === authoringInput) {
+    applyAuthoringText();
+    return;
+  }
+
+  updatePlayground();
+});
+
+preset.addEventListener("change", () => loadPreset(preset.value));
+resetButton.addEventListener("click", () => loadPreset("product"));
+clearButton.addEventListener("click", clearAuthoring);
+
+document.querySelectorAll("[data-preset]").forEach((button) => {
+  button.addEventListener("click", () => loadPreset(button.dataset.preset));
+});
+
+document.querySelectorAll("[data-tab]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const tab = button.dataset.tab;
+
+    document.querySelectorAll("[data-tab]").forEach((item) => item.classList.toggle("is-active", item === button));
+    document.querySelectorAll("[data-panel]").forEach((panel) => {
+      const isActive = panel.dataset.panel === tab;
+      panel.hidden = !isActive;
+      panel.classList.toggle("is-active", isActive);
+    });
+  });
+});
+
+document.querySelectorAll("[data-copy]").forEach((button) => {
+  button.addEventListener("click", async () => {
+    const target = document.getElementById(button.dataset.copy);
+    const text = target?.textContent || "";
+
+    try {
+      await navigator.clipboard.writeText(text);
+      statusMessage.textContent = `Copied ${button.dataset.copy.replace("-output", "")}.`;
+      statusMessage.classList.remove("is-error");
+    } catch {
+      statusMessage.textContent = "Copy failed. Select the snippet text and copy it manually.";
+      statusMessage.classList.add("is-error");
+    }
+  });
+});
+
+loadPreset("product");

@@ -3,425 +3,330 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Depth as Metadata</title>
+    <title>depth-sol CSS Kit</title>
     <meta
       name="description"
-      content="A small concept project exploring a flat-web depth semantic using depth and a document light source called sol, with a bridge to A-Frame and XR runtimes."
+      content="A browser-safe depth and document-light CSS kit with progressive A-Frame-shaped bridge output."
     />
-    <meta property="og:title" content="depth-sol" />
+    <meta property="og:title" content="depth-sol CSS Kit" />
     <meta
       property="og:description"
-      content="An experimental flat-web depth semantic: depth and sol as browser-safe spatial metadata with an A-Frame bridge."
+      content="Author depth and sol once, keep flat browsers safe, and pass deterministic metadata to spatial runtimes."
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="social-preview.svg" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="depth-sol" />
+    <meta name="twitter:title" content="depth-sol CSS Kit" />
     <meta
       name="twitter:description"
-      content="A flat-web spatial semantic experiment using depth and sol for browser-safe cues with a path to XR rendering."
+      content="A small CSS and JavaScript kit for browser-safe depth semantics with an optional A-Frame bridge."
     />
     <meta name="twitter:image" content="social-preview.svg" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="page-shell">
-      <section class="intro">
-        <p class="eyebrow">Spec-style concept project</p>
-        <h1>Keep depth semantic in HTML. Let spatial runtimes decide how much of it becomes visible.</h1>
-        <p class="lede">
-          <code>depth-sol</code> complements <code>aframe-bootstrap</code> instead of competing
-          with it. In a normal browser, <code>depth</code> behaves like browser-safe spatial metadata
-          shaped by a document light source called <code>sol</code>. In a VR-capable runtime,
-          the same values can translate into true volume and light placement.
-        </p>
-      </section>
+    <a class="skip-link" href="#playground">Skip to playground</a>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="depth-sol home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>depth-sol</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#contract">Contract</a>
+        <a href="#playground">Playground</a>
+        <a href="#examples">Examples</a>
+        <a href="#bridge">Bridge</a>
+        <a href="#integrate">Integrate</a>
+      </nav>
+    </header>
 
-      <section class="alignment-band" aria-label="Relationship to aframe-bootstrap">
-        <article class="alignment-card">
-          <p class="eyebrow">A-Frame review</p>
-          <h2>What stays in <code>aframe-bootstrap</code></h2>
-          <p>
-            Native spatial UI primitives, tokens, interaction rules, and real scene composition
-            remain the job of the A-Frame library.
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Version depth-sol/0.2</p>
+          <h1>Depth metadata for the flat web, ready for spatial interpretation.</h1>
+          <p class="lede">
+            Author a surface with <code>depth</code> and a document light named <code>sol</code>.
+            Regular browsers get stable shadows and lighting hints. A-Frame runtimes get deterministic
+            scene-ready geometry without becoming a dependency.
           </p>
-        </article>
-        <article class="alignment-card">
-          <p class="eyebrow">This repo’s lane</p>
-          <h2>What this demo explores instead</h2>
-          <p>
-            A flat-web authoring contract where <code>depth</code> and <code>sol</code> are
-            document-level semantics that degrade gracefully to shadows, lighting hints, and
-            comfort-safe 2D cues.
-          </p>
-        </article>
-      </section>
-
-      <section class="experience" aria-label="Interactive depth contract demo">
-        <div class="stage-card">
-          <div class="stage-meta">
-            <p>Browser output</p>
-            <span>Depth is not directly rendered here</span>
-          </div>
-
-          <div class="viewport">
-            <div class="browser-surface">
-              <div class="shadow-plane" aria-hidden="true"></div>
-              <article class="flat-object" id="flat-object">
-                <div class="flat-object__cap"></div>
-                <div class="flat-object__body">
-                  <p class="flat-object__label">DOM card</p>
-                  <h3>Depth-aware surface</h3>
-                  <p>
-                    On a regular page, this stays flat. Its <code>depth</code> value only changes
-                    how the shadow falls from <code>sol</code>.
-                  </p>
-                </div>
-              </article>
-              <div class="stage-note">
-                <div>
-                  <strong>2D browser:</strong>
-                  shadow, lift, light color, and spatial hints
-                </div>
-                <div>
-                  <strong>XR browser or VR screen:</strong>
-                  same authored contract could expose real extrusion
-                </div>
-              </div>
-            </div>
+          <div class="hero-actions" aria-label="Intro actions">
+            <a class="button button-primary" href="#playground">Open playground</a>
+            <a class="button" href="#integrate">Read integration contract</a>
           </div>
         </div>
+        <img class="hero-preview" src="social-preview.svg" alt="depth-sol preview card" />
+      </section>
 
-        <div class="control-card">
-          <div class="stage-meta">
-            <p>Document contract</p>
-            <span><code>depth</code> + <code>sol</code></span>
-          </div>
+      <section class="contract-band" id="contract" aria-labelledby="contract-title">
+        <div class="section-heading">
+          <p class="eyebrow">Authoring contract</p>
+          <h2 id="contract-title">One browser-safe shape</h2>
+          <p>
+            The contract is intentionally small. Use CSS-like pixel values, keep source markup valid
+            HTML, and treat spatial output as an optional interpretation.
+          </p>
+        </div>
+        <div class="contract-grid">
+          <article class="info-card">
+            <h3>1. Declare a document light</h3>
+            <p>
+              <code>&lt;sol&gt;</code> carries light position, softness, color, and axis hints as plain
+              attributes. Unknown elements are browser-safe and harmless.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>2. Mark depth-aware surfaces</h3>
+            <p>
+              Add <code>data-depth-sol-surface</code> and a <code>depth</code> value. Flat layout stays
+              governed by normal width, height, and aspect-ratio rules.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>3. Bridge only when useful</h3>
+            <p>
+              Consumers can read the normalized model, CSS custom properties, JSON, or A-Frame-shaped
+              markup. Nothing requires WebGL, WebXR, or A-Frame to understand the page.
+            </p>
+          </article>
+        </div>
+      </section>
 
-          <form class="controls" id="controls">
+      <section class="playground" id="playground" aria-labelledby="playground-title">
+        <div class="section-heading">
+          <p class="eyebrow">Live playground</p>
+          <h2 id="playground-title">Tune the contract and copy the result</h2>
+        </div>
+
+        <div class="workspace">
+          <form class="controls-panel" id="controls" aria-label="Depth and sol controls">
+            <div class="toolbar">
+              <div>
+                <p class="panel-kicker">Preset</p>
+                <select id="preset" name="preset" aria-label="Example preset">
+                  <option value="product">Product card</option>
+                  <option value="reader">Reader pane</option>
+                  <option value="dashboard">Dashboard tile</option>
+                  <option value="control">A-Frame control</option>
+                </select>
+              </div>
+              <div class="toolbar-actions">
+                <button class="icon-button" type="button" id="reset-button" aria-label="Reset playground" title="Reset">
+                  <span aria-hidden="true">Reset</span>
+                </button>
+                <button class="icon-button" type="button" id="clear-button" aria-label="Clear authoring text" title="Clear">
+                  <span aria-hidden="true">Clear</span>
+                </button>
+              </div>
+            </div>
+
             <label class="control">
               <span>Surface width</span>
-              <input
-                id="size"
-                name="size"
-                type="range"
-                min="180"
-                max="360"
-                value="252"
-              />
-              <output for="size" id="size-value">252px</output>
+              <input id="size" name="size" type="range" min="180" max="420" value="304" />
+              <output for="size" id="size-value">304px</output>
             </label>
 
             <label class="control">
               <span>Depth metadata</span>
-              <input
-                id="depth"
-                name="depth"
-                type="range"
-                min="0"
-                max="160"
-                value="88"
-              />
-              <output for="depth" id="depth-value">88px</output>
+              <input id="depth" name="depth" type="range" min="0" max="180" value="76" />
+              <output for="depth" id="depth-value">76px</output>
             </label>
 
-            <label class="control">
-              <span>sol x</span>
-              <input
-                id="light-x"
-                name="lightX"
-                type="range"
-                min="-180"
-                max="180"
-                value="44"
-              />
-              <output for="light-x" id="light-x-value">44</output>
-            </label>
+            <div class="control-row" aria-label="Document light coordinates">
+              <label class="control compact">
+                <span>sol x</span>
+                <input id="light-x" name="lightX" type="range" min="-180" max="180" value="38" />
+                <output for="light-x" id="light-x-value">38</output>
+              </label>
+              <label class="control compact">
+                <span>sol y</span>
+                <input id="light-y" name="lightY" type="range" min="-180" max="180" value="-42" />
+                <output for="light-y" id="light-y-value">-42</output>
+              </label>
+            </div>
 
-            <label class="control">
-              <span>sol y</span>
-              <input
-                id="light-y"
-                name="lightY"
-                type="range"
-                min="-180"
-                max="180"
-                value="-36"
-              />
-              <output for="light-y" id="light-y-value">-36</output>
-            </label>
-
-            <label class="control">
-              <span>sol z</span>
-              <input
-                id="light-z"
-                name="lightZ"
-                type="range"
-                min="20"
-                max="240"
-                value="116"
-              />
-              <output for="light-z" id="light-z-value">116</output>
-            </label>
-
-            <label class="control">
-              <span>sol size</span>
-              <input
-                id="light-size"
-                name="lightSize"
-                type="range"
-                min="16"
-                max="120"
-                value="58"
-              />
-              <output for="light-size" id="light-size-value">58px</output>
-            </label>
+            <div class="control-row" aria-label="Document light shape">
+              <label class="control compact">
+                <span>sol z</span>
+                <input id="light-z" name="lightZ" type="range" min="20" max="240" value="128" />
+                <output for="light-z" id="light-z-value">128</output>
+              </label>
+              <label class="control compact">
+                <span>sol size</span>
+                <input id="light-size" name="lightSize" type="range" min="16" max="128" value="64" />
+                <output for="light-size" id="light-size-value">64px</output>
+              </label>
+            </div>
 
             <label class="control">
               <span>sol hue</span>
-              <input
-                id="hue"
-                name="hue"
-                type="range"
-                min="0"
-                max="360"
-                value="196"
-              />
-              <output for="hue" id="hue-value">196°</output>
+              <input id="hue" name="hue" type="range" min="0" max="360" value="196" />
+              <output for="hue" id="hue-value">196</output>
             </label>
+
+            <label class="text-control">
+              <span>Authoring text</span>
+              <textarea id="authoring-input" rows="8" spellcheck="false"></textarea>
+            </label>
+
+            <p class="status-message" id="status-message" role="status">Ready.</p>
           </form>
 
-          <div class="snippet">
-            <div class="snippet-head">
-              <p>Proposed authoring shape</p>
-              <span>Companion spec, not engine behavior</span>
+          <div class="preview-panel" aria-live="polite">
+            <sol id="demo-sol" x="38" y="-42" z="128" size="64" color="hsl(196 90% 64%)" axes="xyz"></sol>
+            <article
+              class="depth-surface"
+              id="demo-surface"
+              data-depth-sol-surface
+              data-variant="product"
+              depth="76px"
+              aria-label="Product card surface"
+            >
+              <div class="surface-media" aria-hidden="true"></div>
+              <div class="surface-body">
+                <p class="surface-label" id="surface-label">Product card</p>
+                <h3 id="surface-title">Glass controller dock</h3>
+                <p id="surface-copy">
+                  A normal DOM card with depth-aware lighting. It remains readable, selectable,
+                  and touch friendly before any spatial runtime joins in.
+                </p>
+              </div>
+            </article>
+            <div class="empty-state" id="empty-state" hidden>
+              <h3>No contract loaded</h3>
+              <p>Choose an example or reset the playground to restore a browser-safe surface.</p>
             </div>
-            <pre><code id="code-snippet">&lt;sol x="44" y="-36" z="116" size="58" color="hsl(196 90% 64%)" axes="xyz"&gt;&lt;/sol&gt;
-
-.surface {
-  width: 252px;
-  aspect-ratio: 1;
-  depth: 88px;
-}</code></pre>
           </div>
         </div>
-      </section>
 
-      <section class="translation-grid" aria-label="Translation model">
-        <article class="translation-card">
-          <p class="eyebrow">Normal browser</p>
-          <h2>Flat page behavior</h2>
-          <p>
-            <code>depth</code> affects elevation, occlusion, and shadow softness. The element
-            remains fundamentally planar.
-          </p>
-        </article>
-        <article class="translation-card">
-          <p class="eyebrow">Spatial runtime</p>
-          <h2>Optional true extrusion</h2>
-          <p>
-            A VR browser, WebXR scene, or a VR screen that renders the page could choose to map
-            the same semantic depth value into actual geometry.
-          </p>
-        </article>
-        <article class="translation-card">
-          <p class="eyebrow">Compatibility</p>
-          <h2>Why this complements A-Frame</h2>
-          <p>
-            The page-level contract stays declarative while <code>aframe-bootstrap</code> keeps
-            owning scene-native components, tokens, and interaction semantics.
-          </p>
-        </article>
-      </section>
-
-      <section class="bridge-spec" aria-labelledby="bridge-spec-title">
-        <div class="archive-heading">
-          <p class="eyebrow">Bridge spec</p>
-          <h2 id="bridge-spec-title">One authoring contract, two render paths.</h2>
-          <p class="archive-note">
-            The companion layer becomes useful when it can actually translate. This bridge treats
-            the authored page as the source of truth, then emits either a flat-browser shadow model
-            or a scene-native A-Frame interpretation from the same semantic inputs.
-          </p>
+        <div class="output-tabs" aria-label="Copyable outputs">
+          <button class="tab-button is-active" type="button" data-tab="source">Source</button>
+          <button class="tab-button" type="button" data-tab="css">CSS vars</button>
+          <button class="tab-button" type="button" data-tab="json">JSON</button>
+          <button class="tab-button" type="button" data-tab="aframe">A-Frame</button>
         </div>
 
-        <div class="bridge-grid">
-          <article class="bridge-card">
-            <p class="reference-tag">Authoring input</p>
-            <h3>Document semantics</h3>
-            <pre><code id="bridge-source-snippet">&lt;sol x="44" y="-36" z="116" size="58" color="hsl(196 90% 64%)" axes="xyz"&gt;&lt;/sol&gt;
-
-.surface {
-  width: 252px;
-  aspect-ratio: 1;
-  depth: 88px;
-}</code></pre>
+        <div class="snippet-grid">
+          <article class="snippet-panel is-active" data-panel="source">
+            <div class="snippet-head">
+              <h3>Author once</h3>
+              <button type="button" class="copy-button" data-copy="source-output">Copy</button>
+            </div>
+            <pre><code id="source-output"></code></pre>
           </article>
-
-          <article class="bridge-card">
-            <p class="reference-tag">Spatial output</p>
-            <h3>A-Frame bridge target</h3>
-            <pre><code id="bridge-runtime-snippet">&lt;a-entity position="0 1.6 -2.5"&gt;
-  &lt;a-entity
-    light="type: point; color: hsl(196 90% 64%); intensity: 1; distance: 5.8; decay: 1.4"
-    position="0.44 -0.36 1.16"&gt;
-  &lt;/a-entity&gt;
-
-  &lt;a-box
-    width="0.252"
-    height="0.252"
-    depth="0.088"
-    position="0 0 0.044"
-    shadow="cast: true; receive: true"&gt;
-  &lt;/a-box&gt;
-&lt;/a-entity&gt;</code></pre>
+          <article class="snippet-panel" data-panel="css" hidden>
+            <div class="snippet-head">
+              <h3>Flat-browser custom properties</h3>
+              <button type="button" class="copy-button" data-copy="css-output">Copy</button>
+            </div>
+            <pre><code id="css-output"></code></pre>
           </article>
-        </div>
-
-        <div class="principles-strip" aria-label="Bridge rules">
-          <div class="principle-pill">Default bridge scale: 1000px = 1m</div>
-          <div class="principle-pill">Front face stays faithful to the original page</div>
-          <div class="principle-pill">Depth shifts geometry by half its value on local z</div>
-          <div class="principle-pill">Flat browsers fall back to shadow instead of fake extrusion</div>
+          <article class="snippet-panel" data-panel="json" hidden>
+            <div class="snippet-head">
+              <h3>Bridge model JSON</h3>
+              <button type="button" class="copy-button" data-copy="json-output">Copy</button>
+            </div>
+            <pre><code id="json-output"></code></pre>
+          </article>
+          <article class="snippet-panel" data-panel="aframe" hidden>
+            <div class="snippet-head">
+              <h3>A-Frame-shaped output</h3>
+              <button type="button" class="copy-button" data-copy="aframe-output">Copy</button>
+            </div>
+            <pre><code id="aframe-output"></code></pre>
+          </article>
         </div>
       </section>
 
-      <section class="reference-archive" aria-labelledby="reference-archive-title">
-        <div class="archive-heading">
-          <p class="eyebrow">Reference archive</p>
-          <h2 id="reference-archive-title">Depth cues now split cleanly between browser illusion and real spatial rendering.</h2>
-          <p class="archive-note">
-            The current synthesis is simple: shadows and lighting belong to the browser fallback,
-            while true volume belongs to spatial runtimes like A-Frame, WebGL, or WebXR. That
-            separation keeps this project aligned with the direction already being established next door.
-          </p>
+      <section class="examples" id="examples" aria-labelledby="examples-title">
+        <div class="section-heading">
+          <p class="eyebrow">Examples</p>
+          <h2 id="examples-title">Ordinary 2D surfaces, optional spatial meaning</h2>
         </div>
-
-        <div class="principles-strip" aria-label="Depth principles">
-          <div class="principle-pill">Use shadow as fallback, not fake geometry everywhere</div>
-          <div class="principle-pill">Keep light direction explicit</div>
-          <div class="principle-pill">Let semantics survive across 2D and XR</div>
-          <div class="principle-pill">Reserve real extrusion for spatial runtimes</div>
-          <div class="principle-pill">Avoid fighting the A-Frame library’s role</div>
+        <div class="example-grid">
+          <button class="example-card" type="button" data-preset="product">
+            <span class="example-swatch product"></span>
+            <strong>Product card</strong>
+            <span>Marketing and catalog surfaces where depth implies elevation.</span>
+          </button>
+          <button class="example-card" type="button" data-preset="reader">
+            <span class="example-swatch reader"></span>
+            <strong>Reader pane</strong>
+            <span>Text panels for A-Frame Reader-style archives and long-form content.</span>
+          </button>
+          <button class="example-card" type="button" data-preset="dashboard">
+            <span class="example-swatch dashboard"></span>
+            <strong>Dashboard tile</strong>
+            <span>Status cards and metrics that need shadow hierarchy before scene geometry.</span>
+          </button>
+          <button class="example-card" type="button" data-preset="control">
+            <span class="example-swatch control"></span>
+            <strong>A-Frame control</strong>
+            <span>Bootstrap-style primitives that can accept normalized bridge values.</span>
+          </button>
         </div>
+      </section>
 
-        <div class="archive-grid">
-          <article class="reference-card">
-            <div class="reference-preview preview-cube" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">Geoff Graham • Oct 25, 2023</p>
-            <h3>A conceptual z-axis API</h3>
-            <p>
-              The anchor idea for the contract itself: imagine <code>depth</code> as a first-class
-              semantic and let rendering strategies differ by environment.
-            </p>
-            <a href="https://geoffgraham.me/a-css-property-for-creating-depth/" target="_blank" rel="noreferrer">Open article</a>
+      <section class="bridge-band" id="bridge" aria-labelledby="bridge-title">
+        <div class="section-heading">
+          <p class="eyebrow">Bridge behavior</p>
+          <h2 id="bridge-title">Deterministic, optional, dependency-free</h2>
+        </div>
+        <div class="rules-grid">
+          <article>
+            <h3>Scale</h3>
+            <p><code>1000px = 1m</code> by default. Consumers may override scale but should preserve it per scene.</p>
           </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-shadow" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">HackerNoon • Mar 10, 2022</p>
-            <h3>Shadow generators as fallback tooling</h3>
-            <p>
-              Useful when the browser expression of depth is mostly shadow design rather than
-              visible extrusion.
-            </p>
-            <a href="https://hackernoon.com/add-depth-to-your-web-design-using-css-shadow-generators" target="_blank" rel="noreferrer">Open article</a>
+          <article>
+            <h3>Geometry</h3>
+            <p>Planar width and aspect ratio become width and height. Depth becomes local z size.</p>
           </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-stackoverflow" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">Stack Overflow • Jan 18, 2019</p>
-            <h3>Layered box-shadow baseline</h3>
-            <p>
-              A practical recipe for the 2D fallback path: soft ambient separation plus a directional cast shadow.
-            </p>
-            <a href="https://stackoverflow.com/questions/54253830/give-divs-depth-with-css-box-shadow-property" target="_blank" rel="noreferrer">Open thread</a>
+          <article>
+            <h3>Placement</h3>
+            <p>The surface shifts by half its depth so the authored DOM plane remains the readable face.</p>
           </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-neo" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">DEV • Feb 7, 2020</p>
-            <h3>Interaction states still matter</h3>
-            <p>
-              Depth is not only geometry. Hover, press, inset, and neomorphic lighting still help
-              communicate surface state in flat browsers.
-            </p>
-            <a href="https://dev.to/adriantwarog/using-css-box-shadow-s-to-create-3d-depth-transitions-and-neomorphism-57o5" target="_blank" rel="noreferrer">Open article</a>
+          <article>
+            <h3>Fallback</h3>
+            <p>If spatial output is unavailable, use the CSS custom properties and keep layout flat.</p>
           </article>
+        </div>
+      </section>
 
-          <article class="reference-card">
-            <div class="reference-preview preview-perspective" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">MDN reference</p>
-            <h3><code>perspective</code> still informs the camera model</h3>
+      <section class="integration" id="integrate" aria-labelledby="integrate-title">
+        <div class="section-heading">
+          <p class="eyebrow">Integration contract</p>
+          <h2 id="integrate-title">For A-Frame Bootstrap and A-Frame Reader</h2>
+        </div>
+        <div class="integration-grid">
+          <article class="info-card">
+            <h3>A-Frame Bootstrap</h3>
             <p>
-              Even if the browser presentation stays flat, the lighting and future spatial mapping
-              still benefit from a clear camera-space mental model.
+              Read <code>createBridgeModels(contract)</code>, map each model to existing
+              <code>a-ui-*</code> primitives, and keep A-Frame loaded by the consumer.
             </p>
-            <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/perspective" target="_blank" rel="noreferrer">Open docs</a>
           </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-foundation" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">HTML Goodies • Mar 2, 2013</p>
-            <h3>Foundational CSS 3D transforms</h3>
+          <article class="info-card">
+            <h3>A-Frame Reader</h3>
             <p>
-              Historical context for how the web has been approximating depth long before a real semantic existed.
+              Attach depth metadata to preserved article panes, use CSS variables for the archive
+              page, and hand JSON bridge models to any VR reading view.
             </p>
-            <a href="https://www.htmlgoodies.com/html5/css-3d-transform/" target="_blank" rel="noreferrer">Open article</a>
           </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-webgl" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">Codrops • Feb 20, 2019</p>
-            <h3>WebGL as the actual geometry path</h3>
+          <article class="info-card">
+            <h3>Plain web pages</h3>
             <p>
-              Once true depth matters visually, the rendering center of gravity shifts from CSS tricks
-              to meshes, textures, and camera systems.
+              Import <code>bridge.js</code>, call <code>applyDepthSolCssVars()</code>, and keep every
+              interaction accessible as normal HTML.
             </p>
-            <a href="https://tympanus.net/codrops/2019/02/20/how-to-create-a-fake-3d-image-effect-with-webgl/" target="_blank" rel="noreferrer">Open article</a>
-          </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-zscale" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">Webflow University</p>
-            <h3>Z-scale as a behavior hint</h3>
-            <p>
-              A good reminder that motion can preview depth even when the normal resting state stays flat.
-            </p>
-            <a href="https://university.webflow.com/videos/exaggerate-depth-using-z-scale" target="_blank" rel="noreferrer">Open lesson</a>
-          </article>
-
-          <article class="reference-card">
-            <div class="reference-preview preview-systems" aria-hidden="true">
-              <span></span>
-            </div>
-            <p class="reference-tag">Design Systems Collective • Jul 5, 2025</p>
-            <h3>Depth as a system, not decoration</h3>
-            <p>
-              The strongest product framing for this repo: spatial cues should clarify hierarchy
-              and interaction, not become an uncontrolled visual effect.
-            </p>
-            <a href="https://www.designsystemscollective.com/beyond-flat-design-how-to-add-spatial-depth-to-web-interfaces-without-overcomplicating-ux-ef7884091b57" target="_blank" rel="noreferrer">Open article</a>
           </article>
         </div>
       </section>
     </main>
+
+    <footer class="site-footer">
+      <span>depth-sol/0.2</span>
+      <span>Experimental, browser-safe, and dependency-free.</span>
+    </footer>
 
     <script type="module" src="script.js"></script>
   </body>
