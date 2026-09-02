@@ -1,0 +1,13 @@
+{
+  "name": "depth-sol",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "A browser-safe depth and document-light CSS kit with optional A-Frame bridge output.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "validate": "node tests/static-smoke.test.mjs",
+    "verify": "npm test",
+    "serve": "python3 -m http.server 4173"
+  }
+}
