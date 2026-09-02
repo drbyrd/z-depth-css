@@ -74,7 +74,7 @@ This repo includes:
 - [`bridge-spec.md`](./bridge-spec.md): the written bridge spec
 - [`INTEGRATION.md`](./INTEGRATION.md): concise sibling-consumer contract
 - [`bridge.js`](./bridge.js): a small proof-of-concept translator
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md): internal structure and data flow
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md): project structure and data flow
 - [`AUTHORING.md`](./AUTHORING.md): the authoring model in plain language
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md): contribution boundaries and working style
 
@@ -135,6 +135,7 @@ The current proof of concept models one document light, multiple practical surfa
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): structure, responsibilities, and data flow
 - [`AUTHORING.md`](./AUTHORING.md): authoring contract explained without implementation detail
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md): project boundaries and contribution style
+- [`EVIDENCE.md`](./EVIDENCE.md): local verification and browser QA record
 - [`social-preview.svg`](./social-preview.svg): Open Graph / social preview artwork
 - [`.gitignore`](./.gitignore): local-only, cache, and temporary-file exclusions
 - [`LICENSE`](./LICENSE): MIT license
@@ -147,6 +148,7 @@ The current proof of concept models one document light, multiple practical surfa
 - Read [`ARCHITECTURE.md`](./ARCHITECTURE.md) for file responsibilities and data flow
 - Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) for scope boundaries if you want to extend the project
 - Read [`SECURITY.md`](./SECURITY.md) for secret-handling and repository hygiene notes
+- Read [`EVIDENCE.md`](./EVIDENCE.md) for the latest local validation record
 
 ## Running It Locally
 
