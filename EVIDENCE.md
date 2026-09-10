@@ -1,5 +1,7 @@
 # Verification Evidence
 
+For fresh lifecycle recovery evidence from 2026-09-10, see [`docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md`](./docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md). The record below is preserved as historical September 2 evidence.
+
 Date: 2026-09-02
 
 ## Scope Checked Before Product Edits
