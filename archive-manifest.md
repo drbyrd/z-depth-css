@@ -1,6 +1,6 @@
 # Z-Depth CSS Advisory Archive Manifest
 
-Date: 2026-09-10  
+Date: 2026-09-10
 Status: **advisory only — stop before archival.**
 
 ## Scope and Non-Actions
@@ -13,7 +13,7 @@ No Keychain, Chrome Safe Storage, saved browser profile, cookie, token, credenti
 
 | Item | Identifier / location | Reason | Archive action now |
 | --- | --- | --- | --- |
-| Current verified baseline | `5220f853db61e336b4c8a0d8759cf9fe2a218347` / local `main` | Phase 02 evidence baseline | retain; no action |
+| Current verified baseline | `5220f853db61e336b4c8a0d8759cf9fe2a218347` | accepted Phase 02 product-verification baseline; later `920ba7c`/`4ec2752` on local `main` are documentation-only | retain; no action |
 | Historical snapshot | `refs/codex/snapshots/588607635cbd771990948966721589d194ab7fb7` -> `8172ebf` | canonical historical product provenance | retain; no action |
 | Current snapshot | `refs/codex/snapshots/78b3517ff28a7ce7c8afb5281414fdb77de9c297` -> `5220f85` | current checkpoint source evidence | retain; no action |
 | Recovery line | `machi/z-depth-phase01-recovery` -> `5220f85` | recovery chronology and Phase 01/02 evidence | retain; no action |
@@ -22,7 +22,7 @@ No Keychain, Chrome Safe Storage, saved browser profile, cookie, token, credenti
 | Stash | `refs/stash` -> `16a3883` | safety checkpoint for the dirty saved checkout | retain; no action |
 | Turn-diff refs | `refs/codex/turn-diffs/*` -> `817f024` | task checkpoint provenance | retain; no action |
 | Archived task records | IDs in `session-ledger.md` | early project source context | retain; no action |
-| Active closeout/source context | this task and Portfolio Boss source context | current work and review lineage | retain; no action |
+| Closeout and ratification context | earlier closeout task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` (final report; `920ba7c`/`4ec2752`; no readable goal receipt), this separate ratification, and Portfolio Boss source context | current review lineage and retained evidence gap | retain; no action |
 | Unreachable objects | reported by `git fsck --no-reflogs --unreachable` | possible recovery material | retain; do not prune or collect |
 
 ## Eligibility Gate
