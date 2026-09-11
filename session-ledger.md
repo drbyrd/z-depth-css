@@ -1,6 +1,6 @@
 # Z-Depth CSS Session Ledger
 
-Date: 2026-09-10
+Date: 2026-09-11
 Method: repository records, reachable refs/reflogs, existing lifecycle evidence, and a complete paginated local archived-task listing (387 records inspected). Listing metadata is evidence of a task record, not proof of its outcome.
 
 ## Chronological Ledger
@@ -15,6 +15,8 @@ Method: repository records, reachable refs/reflogs, existing lifecycle evidence,
 | 2026-09-09 | Phase 02 verification, `5220f85` | completed | Fresh local verification is recorded in `docs/lifecycle/PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md`. | high |
 | 2026-09-10 | Earlier documentation/provenance closeout task `01a08dac-3ae4-76a1-93e4-12e693f7beeb`, commits `920ba7c` and `4ec2752` | final report/commits recorded; formal-goal proof unestablished | The task has a readable final report and these documentation commits, but no readable goal-tool activation or completion receipt. Do not backdate or infer formal closeout-goal completion from the final report. | high for report/commit facts; medium for process classification |
 | 2026-09-10 | Non-backdating closeout ratification (this task) | active | A new formal goal was activated before this documentation edit. It records the prior evidence gap, applies the formatting correction, and does not alter the earlier task’s historical process evidence or archive anything. | high |
+| 2026-09-11 | Phase 03 task `01a0905b-5123-7a91-9334-4788a1d02670`, “Z-Depth Phase 03 A-Frame Contract” | completed | Formal-goal producer checkpoint. `14e3b92` adds the `depth-sol/0.3` CSS-variable, utility-class, JSON, and deterministic bridge-event contract; `2ee3a30` records the Phase 03 evidence. Local checks recorded 13 passing tests for `npm test` and `npm run verify`, 6 for `npm run validate`, zero whitespace errors, and no gitleaks findings. A-Frame Bootstrap adoption remains separately unproven. | high |
+| 2026-09-11 | Phase 03 documentation closeout task `01a0906c-b85e-7981-ae9c-db8759361f01` (this task) | active | Formal goal activated before reconciling the four canonical records. This is a documentation-only closeout; it neither changes product behavior nor archives any task, session, ref, branch, stash, snapshot, artifact, or recovery object. | high |
 
 ## Negative and Supersession Findings
 
@@ -23,7 +25,8 @@ Method: repository records, reachable refs/reflogs, existing lifecycle evidence,
 - The two archived records expose `notLoaded`, which is a loading/listing state—not a completed, failed, or approved archive classification.
 - The prior closeout's final report and commits are completion artifacts, but they are not substitutes for the missing readable goal-tool receipt.
 - The active ratification session, the earlier closeout task, and their Portfolio Boss source context are retained. This ledger does not archive, rename, mutate, or close any task.
+- Retain and leave unarchived the completed Phase 03 task, this active documentation-closeout task, Z-Depth Closeout Ratification `01a08dc9-debb-7831-bb74-6269518a0d8b`, Portfolio Final Archive Eligibility review `01a08db2-671f-7791-9b79-3a65de99b507`, and Portfolio Boss controller `01a0579d-11ee-7881-b448-5436668e007e`. The separate active A-Frame Bootstrap adoption task is also retained; this record does not claim its result.
 
 ## Required Retention
 
-Retain all listed session records, the historical snapshot, the recovery branch, the safety branch, the stash record, and current source evidence. A future Astra/high review may classify archive eligibility, but only a separately authorized action can archive a task or remove a source/recovery record.
+Retain all listed session records, the historical snapshot, the recovery branch, the Phase 03 producer branch, the safety branch, the stash record, and current source evidence. A future Astra/high review may classify archive eligibility, but only a separately authorized action can archive a task or remove a source/recovery record.

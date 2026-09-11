@@ -23,7 +23,7 @@ Confidence: **high** for current Git/source/test state; **medium** for historica
 | 2026-09-09 | `5220f85` | Phase 02 fresh local-verification evidence | high |
 | 2026-09-10 | `920ba7c`, `4ec2752`, and earlier closeout task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` | documentation/provenance/session closeout artifacts; readable formal-goal receipt absent | high for commit/report facts; medium for closeout-process classification |
 | 2026-09-10 | current non-backdating ratification | formal goal activated before documentation edits; evidence-gap and formatting correction only | high |
-| 2026-09-11 | `14e3b92` and Phase 03 evidence | producer contract checkpoint for A-Frame Bootstrap consumption requirements; no downstream adoption claim | high |
+| 2026-09-11 | completed task `01a0905b-5123-7a91-9334-4788a1d02670`, `14e3b92`, and `2ee3a30` | verified Phase 03 producer contract and its evidence record for A-Frame Bootstrap consumption requirements; no downstream adoption claim | high |
 
 The recovery evidence establishes that the replayed product line was byte-equivalent to the preserved `8172ebf` snapshot before lifecycle documentation was added. A current comparison has no non-lifecycle product-source or test differences against that snapshot. The safety branch `safety/z-depth-saved-dirty-20260909` and stash `16a3883` preserve the partial saved-checkout provenance; neither is a disposal candidate in this closeout.
 
@@ -33,7 +33,7 @@ At Phase 03 start, `HEAD` was `1365a7848d1a911a2f2ce2861859678f03cf04eb` (“Rat
 
 The later closeout commits `920ba7c` and `4ec2752` are retained documentation evidence. Their associated task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` has a final report, but no readable goal-tool activation/completion receipt; no formal-goal completion is asserted retroactively. The current ratification is a separate formal-goal record and cannot repair the historical absence.
 
-Fresh local commands on 2026-09-10:
+Phase 02 fresh local commands on 2026-09-10:
 
 ```text
 npm test       -> 11 passed, 0 failed
@@ -54,6 +54,18 @@ tests/static-smoke.test.mjs 917c561f7a168a1c7a286ab794ac71c4a02dd53f2c27d08d1f7d
 ```
 
 `git fsck --no-reflogs --unreachable` reported loose unreachable objects. They were inventoried as preservation signals only; no prune, garbage collection, reset, clean, rewrite, or object deletion was performed.
+
+Phase 03 fresh local commands recorded by completed task `01a0905b-5123-7a91-9334-4788a1d02670`:
+
+```text
+npm test       -> 13 passed, 0 failed
+npm run verify -> 13 passed, 0 failed
+npm run validate -> 6 passed, 0 failed
+git diff --check -> 0 whitespace errors
+gitleaks detect --redact --source . -> no leaks found
+```
+
+The product boundary is `14e3b9274e14e5706016ac767efe13155b9aaa21` (`depth-sol/0.3` producer contract); `2ee3a3064d26316cdf973ab51abcfd89a5d7db1a` records its lifecycle/evidence closeout. The Phase 03 task reports its formal goal completed. Those facts do not substitute for the earlier closeout task's missing readable goal-tool receipt.
 
 ## Phase 03 Boundary
 
@@ -79,3 +91,5 @@ Non-applicable or deferred Phase 03 surfaces:
 The lifecycle library routes evidence/drafting to GPT-5.6 Terra/medium. Disputed provenance, lifecycle contradictions, and final archive eligibility require GPT-6 Astra/high; xhigh is reserved only when high cannot resolve a genuine lineage conflict. No conflict requiring Astra was identified in this checkpoint.
 
 The project retains its own brand. A-Frame Bootstrap and A-Frame Reader are documented downstream-consumer contexts, not code sources, dependencies, or project identities. This audit did not read or modify their worktrees.
+
+The separate active A-Frame Bootstrap adoption task `01a09064-9539-74c0-b30e-db4a23ae5bad` is responsible for proving downstream consumption. Final architecture, test-governance, provenance, and documentation review remains a separate GPT-6 Astra/high formal goal; it is not complete or inferred here.
