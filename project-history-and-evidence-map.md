@@ -1,13 +1,13 @@
 # Z-Depth CSS Project History and Evidence Map
 
 Date: 2026-09-11
-Scope: current-approved-checkpoint documentation, provenance, and Phase 03 producer-checkpoint closeout. This is not an archive operation.
+Scope: current-approved-checkpoint documentation, provenance, and exact-basename session archival. This does not alter product behavior or Git/recovery state.
 
 ## Current Truth
 
 Z-Depth CSS is a framework-agnostic, browser-safe depth and document-light CSS layer. Its `depth-sol` vocabulary is native product vocabulary within Z-Depth CSS. It is not a renamed sibling project and it does not depend on A-Frame Bootstrap or A-Frame Reader.
 
-Lifecycle status: **Phase 03 complete as a producer checkpoint; final architecture acceptance remains HOLD.** On 2026-09-11, the owner identified A-Frame Bootstrap as the real downstream consumer requirement. The resulting `depth-sol/0.3` contract covers CSS variables, utility classes, JSON output, and deterministic bridge event payloads for 2D layering, hover, focus, selection, and motion state. The separate A-Frame Bootstrap adoption task completed consumption at `ffa255d`, `2cc9673`, and `58f9a6a`; the paired final architecture review still held acceptance pending bounded remediation and re-review.
+Lifecycle status: **Phase 03 producer contract accepted.** On 2026-09-11, the owner identified A-Frame Bootstrap as the real downstream consumer requirement. The resulting `depth-sol/0.3` contract covers CSS variables, utility classes, JSON output, and deterministic bridge event payloads for 2D layering, hover, focus, selection, and motion state. A-Frame Bootstrap consumed it at `ffa255d`, `2cc9673`, and `58f9a6a`; the GPT-6 Astra/high frozen review accepted F1-F6 as **PASS**. This is consumer-contract acceptance, not a change in Z-Depth ownership or a dependency on either A-Frame repository.
 
 Confidence: **high** for current Git/source/test state; **medium** for historical-session outcome classification where only repository evidence survives; **low/not asserted** for any uninspected external, credential, hosted, or remote state.
 
@@ -24,8 +24,8 @@ Confidence: **high** for current Git/source/test state; **medium** for historica
 | 2026-09-10 | `920ba7c`, `4ec2752`, and earlier closeout task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` | documentation/provenance/session closeout artifacts; readable formal-goal receipt absent | high for commit/report facts; medium for closeout-process classification |
 | 2026-09-10 | current non-backdating ratification | formal goal activated before documentation edits; evidence-gap and formatting correction only | high |
 | 2026-09-11 | completed task `01a0905b-5123-7a91-9334-4788a1d02670`, `14e3b92`, and `2ee3a30` | verified Phase 03 producer contract and its evidence record for A-Frame Bootstrap consumption requirements; adoption not yet claimed at this producer checkpoint | high |
-| 2026-09-11 | A-Frame Bootstrap adoption commits `ffa255d`, `2cc9673`, and `58f9a6a`; final review task `01a09073-eb3a-7013-8f53-603a5ca752a4` | downstream consumer adoption completed in the owning repository; final architecture verdict was HOLD for bounded findings F1-F6, including Z-Depth-owned F5/F6 remediation | high |
-| 2026-09-11 | F5 remediation commit `6bdbeb818bebf9b7d9f0b76c41cf05f193ffb414` | producer demo now keeps preset/interaction state authoritative and refreshes model, JSON, events, and inline variables on hover/focus/preset/reset transitions; final PASS still requires bounded re-review | high |
+| 2026-09-11 | A-Frame Bootstrap adoption commits `ffa255d`, `2cc9673`, and `58f9a6a`; frozen review task `01a09073-eb3a-7013-8f53-603a5ca752a4` | downstream consumer adoption completed in the owning repository; GPT-6 Astra/high accepted frozen findings F1-F6 as PASS | high |
+| 2026-09-11 | F5 remediation commit `6bdbeb818bebf9b7d9f0b76c41cf05f193ffb414` | producer demo keeps preset/interaction state authoritative and refreshes model, JSON, events, and inline variables on hover/focus/preset/reset transitions; this is accepted within frozen F1-F6 PASS | high |
 
 The recovery evidence establishes that, at the 2026-09-09 recovery checkpoint, the replayed product line was byte-equivalent to the preserved `8172ebf` snapshot before lifecycle documentation was added. That historical equivalence is not a current product/test diff claim; later Phase 03 and F5 remediation commits intentionally changed bridge, demo, package, and test surfaces. The safety branch `safety/z-depth-saved-dirty-20260909` and stash `16a3883` preserve the partial saved-checkout provenance; neither is a disposal candidate in this closeout.
 
@@ -105,4 +105,4 @@ The lifecycle library routes evidence/drafting to GPT-5.6 Terra/medium. Disputed
 
 The project retains its own brand. A-Frame Bootstrap and A-Frame Reader are documented downstream-consumer contexts, not code sources, dependencies, or project identities. This audit did not read or modify their worktrees.
 
-The separate A-Frame Bootstrap adoption task `01a09064-9539-74c0-b30e-db4a23ae5bad` completed downstream consumption in its owning repository at `ffa255d`, `2cc9673`, and `58f9a6a`. Final architecture, test-governance, provenance, and documentation review was then performed by GPT-6 Astra/high in task `01a09073-eb3a-7013-8f53-603a5ca752a4` and remains **HOLD** pending bounded remediation and re-review; this record does not promote the review to PASS.
+The separate A-Frame Bootstrap adoption task `01a09064-9539-74c0-b30e-db4a23ae5bad` completed downstream consumption in its owning repository at `ffa255d`, `2cc9673`, and `58f9a6a`. The GPT-6 Astra/high frozen review in task `01a09073-eb3a-7013-8f53-603a5ca752a4` accepted F1-F6 as PASS. This evidence records the accepted consumer contract without importing A-Frame Bootstrap sessions into the Z-Depth-owned archival population.

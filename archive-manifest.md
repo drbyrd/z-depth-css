@@ -1,11 +1,11 @@
 # Z-Depth CSS Advisory Archive Manifest
 
 Date: 2026-09-11
-Status: **advisory only — stop before archival.**
+Status: **task-archive execution authorized for the documented inactive exact-basename population.**
 
 ## Scope and Non-Actions
 
-This manifest inventories what a future authorized archive review must preserve. It does not archive tasks, sessions, branches, refs, stashes, worktrees, objects, or source. No history rewrite, push, deployment, hosting action, or product change is authorized or performed.
+This manifest inventories what task archival preserves. It authorizes archival only of the 12 inactive, Z-Depth-owned records named in `session-ledger.md`; it does not authorize deletion or mutation of branches, refs, stashes, worktrees, objects, source, credentials, hosting, or product behavior.
 
 No Keychain, Chrome Safe Storage, saved browser profile, cookie, token, credential, external-auth, or hosting evidence is included or required.
 
@@ -26,12 +26,12 @@ No Keychain, Chrome Safe Storage, saved browser profile, cookie, token, credenti
 | Stash | `refs/stash` -> `16a3883` | safety checkpoint for the dirty saved checkout | retain; no action |
 | Turn-diff refs | `refs/codex/turn-diffs/*` -> `817f024` | task checkpoint provenance | retain; no action |
 | Archived task records | IDs in `session-ledger.md` | early project source context | retain; no action |
-| Closeout, architecture, and controller context | earlier closeout task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` (final report; `920ba7c`/`4ec2752`; no readable goal receipt), Z-Depth Closeout Ratification `01a08dc9-debb-7831-bb74-6269518a0d8b`, this documentation closeout `01a0906c-b85e-7981-ae9c-db8759361f01`, Portfolio Final Archive Eligibility review `01a08db2-671f-7791-9b79-3a65de99b507`, and Portfolio Boss controller `01a0579d-11ee-7881-b448-5436668e007e` | current review lineage and retained earlier goal-receipt qualification | retain; no action |
-| Phase 03, downstream-consumer, and final-review tasks | completed Phase 03 task `01a0905b-5123-7a91-9334-4788a1d02670`; completed A-Frame Bootstrap adoption task `01a09064-9539-74c0-b30e-db4a23ae5bad` at `ffa255d`, `2cc9673`, and `58f9a6a`; final architecture review task `01a09073-eb3a-7013-8f53-603a5ca752a4` | producer evidence and consumer adoption are complete; final architecture acceptance remains HOLD pending bounded remediation and re-review | retain and leave unarchived; no action |
+| Unarchived task exceptions | this archive task `01a09262-348c-7030-a525-c0385ce54fb6`; exact named active writer `01a0907a-6611-72f2-b9f4-156cc1ddf03e` | active task execution and active writer exception | retain and leave unarchived |
+| A-Frame Bootstrap adoption and frozen review | adoption task `01a09064-9539-74c0-b30e-db4a23ae5bad` at `ffa255d`, `2cc9673`, and `58f9a6a`; review task `01a09073-eb3a-7013-8f53-603a5ca752a4` | separate ownership; GPT-6 Astra/high accepted frozen F1-F6 PASS | not in Z-Depth archive population |
 | Unreachable objects | reported by `git fsck --no-reflogs --unreachable` | possible recovery material | retain; do not prune or collect |
 
 ## Eligibility Gate
 
-Archive execution is **not eligible** at this checkpoint. A separate GPT-6 Astra/high review must first resolve final archive eligibility, lifecycle consistency, provenance, and documentation. GPT-6 Astra/xhigh is allowed only if high cannot resolve conflicting lineages.
+The authoritative read-only exact-basename inventory starts at 17 records: 14 unarchived and 3 archived. Archive the 12 inactive, Z-Depth-owned unarchived records listed in `session-ledger.md`. After execution, expected exact-basename counts are 2 unarchived and 15 archived. Re-query the same inventory before completion.
 
-The review must preserve the explicit lifecycle result: Z-Depth CSS is through Phase 03 as a verified producer checkpoint. The real downstream consumer is A-Frame Bootstrap, and consumption proof completed in the owning repository at `ffa255d`, `2cc9673`, and `58f9a6a`. Do not invent a consumer fixture, treat A-Frame Bootstrap or A-Frame Reader as a dependency, claim final architecture acceptance, or authorize archive execution before bounded remediation and GPT-6 Astra/high re-review resolve the HOLD.
+The lifecycle result remains a verified Phase 03 producer contract with accepted A-Frame Bootstrap consumption. Do not invent a consumer fixture, treat A-Frame Bootstrap or A-Frame Reader as a dependency, or change anything beyond task archive state.
