@@ -99,6 +99,38 @@ const presets = {
   },
 };
 
+const DEFAULT_INTERACTION_STATE = Object.freeze({
+  hovered: false,
+  focused: false,
+  selected: false,
+  motion: "idle",
+});
+
+let demoInteractionState = { ...DEFAULT_INTERACTION_STATE };
+
+function interactionStateFromPreset(surface = {}) {
+  return {
+    hovered: false,
+    focused: Boolean(surface.focused),
+    selected: Boolean(surface.selected),
+    motion: surface.motion || DEFAULT_INTERACTION_STATE.motion,
+  };
+}
+
+function resetDemoInteractionState(surface) {
+  demoInteractionState = interactionStateFromPreset(surface);
+}
+
+function setDemoInteractionState(nextState) {
+  const next = { ...demoInteractionState, ...nextState };
+  const changed = Object.entries(next).some(([name, value]) => demoInteractionState[name] !== value);
+
+  if (changed) {
+    demoInteractionState = next;
+    updatePlayground();
+  }
+}
+
 function currentValues() {
   return Object.fromEntries(Object.entries(fields).map(([name, field]) => [name, Number(field.input.value)]));
 }
@@ -130,10 +162,10 @@ function createCurrentModel() {
     hue: values.hue,
     variant: selectedPreset.surface.variant,
     layer: selectedPreset.surface.layer,
-    hovered: demoSurface.matches(":hover"),
-    focused: selectedPreset.surface.focused || demoSurface.matches(":focus-visible") || demoSurface.matches(":focus-within"),
-    selected: selectedPreset.surface.selected || demoSurface.getAttribute("aria-selected") === "true",
-    motion: selectedPreset.surface.motion,
+    hovered: demoInteractionState.hovered,
+    focused: demoInteractionState.focused,
+    selected: demoInteractionState.selected,
+    motion: demoInteractionState.motion,
     sol: {
       x: values.lightX,
       y: values.lightY,
@@ -195,6 +227,7 @@ function loadPreset(name) {
   const nextPreset = presets[name] || presets.product;
   preset.value = name in presets ? name : "product";
   setValues(nextPreset.values);
+  resetDemoInteractionState(nextPreset.surface);
   updatePlayground();
 }
 
@@ -254,6 +287,13 @@ controls.addEventListener("input", (event) => {
 preset.addEventListener("change", () => loadPreset(preset.value));
 resetButton.addEventListener("click", () => loadPreset("product"));
 clearButton.addEventListener("click", clearAuthoring);
+
+demoSurface.addEventListener("pointerenter", () => setDemoInteractionState({ hovered: true }));
+demoSurface.addEventListener("pointerleave", () => setDemoInteractionState({ hovered: false }));
+demoSurface.addEventListener("mouseenter", () => setDemoInteractionState({ hovered: true }));
+demoSurface.addEventListener("mouseleave", () => setDemoInteractionState({ hovered: false }));
+demoSurface.addEventListener("focusin", () => setDemoInteractionState({ focused: true }));
+demoSurface.addEventListener("focusout", () => setDemoInteractionState({ focused: false }));
 
 document.querySelectorAll("[data-preset]").forEach((button) => {
   button.addEventListener("click", () => loadPreset(button.dataset.preset));

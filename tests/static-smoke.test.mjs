@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
+import { pathToFileURL } from "node:url";
 import test from "node:test";
 
 const files = {
@@ -103,4 +104,179 @@ test("ships the producer state contract without downstream dependencies", () => 
   assert.match(files.script, /depthSolLayer/);
   assert.match(files.bridgeSpec, /depth-sol:selection/);
   assert.match(files.bridgeSpec, /Shipping an A-Frame Bootstrap adapter/);
+});
+
+function createElement({ id = "", value = "", dataset = {} } = {}) {
+  const listeners = new Map();
+  const attributes = new Map();
+  const styleProperties = {};
+  const classes = new Set();
+
+  return {
+    id,
+    value,
+    dataset: { ...dataset },
+    hidden: false,
+    className: "",
+    textContent: "",
+    classList: {
+      add(name) {
+        classes.add(name);
+      },
+      remove(name) {
+        classes.delete(name);
+      },
+      toggle(name, force) {
+        const shouldAdd = force ?? !classes.has(name);
+        if (shouldAdd) {
+          classes.add(name);
+        } else {
+          classes.delete(name);
+        }
+        return shouldAdd;
+      },
+      contains(name) {
+        return classes.has(name);
+      },
+    },
+    style: {
+      width: "",
+      aspectRatio: "",
+      setProperty(name, propertyValue) {
+        styleProperties[name] = propertyValue;
+      },
+      getPropertyValue(name) {
+        return styleProperties[name] || "";
+      },
+    },
+    addEventListener(type, handler) {
+      const handlers = listeners.get(type) || [];
+      handlers.push(handler);
+      listeners.set(type, handlers);
+    },
+    dispatch(type, event = {}) {
+      for (const handler of listeners.get(type) || []) {
+        handler({ target: this, ...event });
+      }
+    },
+    setAttribute(name, attributeValue) {
+      attributes.set(name, String(attributeValue));
+    },
+    getAttribute(name) {
+      return attributes.get(name) || null;
+    },
+    matches() {
+      return false;
+    },
+    styleProperties,
+  };
+}
+
+function createPlaygroundDocument() {
+  const ids = new Map();
+  const add = (id, element = createElement({ id })) => {
+    ids.set(id, element);
+    return element;
+  };
+
+  add("controls");
+  add("preset", createElement({ id: "preset", value: "product" }));
+  add("status-message");
+  add("authoring-input");
+  add("demo-sol");
+  add("demo-surface");
+  add("empty-state");
+  add("reset-button");
+  add("clear-button");
+  add("source-output");
+  add("css-output");
+  add("json-output");
+  add("aframe-output");
+  add("surface-label");
+  add("surface-title");
+  add("surface-copy");
+
+  for (const id of ["size", "depth", "light-x", "light-y", "light-z", "light-size", "hue"]) {
+    add(id);
+  }
+
+  ids.get("size").value = "304";
+  ids.get("depth").value = "76";
+  ids.get("light-x").value = "38";
+  ids.get("light-y").value = "-42";
+  ids.get("light-z").value = "128";
+  ids.get("light-size").value = "64";
+  ids.get("hue").value = "196";
+
+  for (const id of ["size-value", "depth-value", "light-x-value", "light-y-value", "light-z-value", "light-size-value", "hue-value"]) {
+    add(id);
+  }
+
+  return {
+    documentElement: createElement({ id: "root" }),
+    getElementById(id) {
+      return ids.get(id) || null;
+    },
+    querySelectorAll(selector) {
+      if (selector === "[data-preset]") {
+        return [
+          createElement({ dataset: { preset: "product" } }),
+          createElement({ dataset: { preset: "dashboard" } }),
+        ];
+      }
+
+      if (selector === "[data-tab]" || selector === "[data-panel]" || selector === "[data-copy]") {
+        return [];
+      }
+
+      return [];
+    },
+    ids,
+  };
+}
+
+test("keeps demo interaction state authoritative across preset, reset, hover, and focus transitions", async () => {
+  const priorDocument = globalThis.document;
+  const document = createPlaygroundDocument();
+  globalThis.document = document;
+
+  try {
+    const moduleUrl = `${pathToFileURL("script.js").href}?static-smoke=${Date.now()}`;
+    await import(moduleUrl);
+
+    const preset = document.ids.get("preset");
+    const surface = document.ids.get("demo-surface");
+    const reset = document.ids.get("reset-button");
+    const json = document.ids.get("json-output");
+
+    preset.value = "dashboard";
+    preset.dispatch("change");
+    assert.equal(surface.getAttribute("aria-selected"), "true");
+    assert.equal(surface.style.getPropertyValue("--depth-sol-selected"), "1");
+    assert.match(json.textContent, /"selected": true/);
+
+    reset.dispatch("click");
+    assert.equal(preset.value, "product");
+    assert.equal(surface.getAttribute("aria-selected"), "false");
+    assert.equal(surface.style.getPropertyValue("--depth-sol-selected"), "0");
+    assert.doesNotMatch(surface.className, /is-depth-selected/);
+    assert.match(json.textContent, /"selected": false/);
+
+    surface.dispatch("pointerenter");
+    assert.equal(surface.style.getPropertyValue("--depth-sol-hover"), "1");
+    assert.match(json.textContent, /"hovered": true/);
+
+    surface.dispatch("focusin");
+    assert.equal(surface.style.getPropertyValue("--depth-sol-focus"), "1");
+    assert.match(json.textContent, /"focused": true/);
+
+    surface.dispatch("pointerleave");
+    surface.dispatch("focusout");
+    assert.equal(surface.style.getPropertyValue("--depth-sol-hover"), "0");
+    assert.equal(surface.style.getPropertyValue("--depth-sol-focus"), "0");
+    assert.match(json.textContent, /"hovered": false/);
+    assert.match(json.textContent, /"focused": false/);
+  } finally {
+    globalThis.document = priorDocument;
+  }
 });
