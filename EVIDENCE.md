@@ -1,6 +1,6 @@
 # Verification Evidence
 
-For fresh lifecycle evidence from 2026-09-10, see [`docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md`](./docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md) and [`docs/lifecycle/PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md`](./docs/lifecycle/PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md). The record below is preserved as historical September 2 evidence.
+For fresh lifecycle evidence, see [`docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md`](./docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md), [`docs/lifecycle/PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md`](./docs/lifecycle/PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md), and [`docs/lifecycle/PHASE-03-CONTRACT-EVIDENCE.md`](./docs/lifecycle/PHASE-03-CONTRACT-EVIDENCE.md). The record below is preserved as historical September 2 evidence.
 
 Date: 2026-09-02
 

@@ -300,4 +300,4 @@ This routing governs evidence-led documentation and archive-readiness work. It d
 - Escalate disputed provenance, lifecycle contradictions, and final archive eligibility to **GPT-6 Astra / high**. Astra/high is a review gate, not an automatic approval to archive.
 - Use **GPT-6 Astra / xhigh** only when Astra/high cannot resolve genuinely conflicting lineages from the available evidence.
 
-The current lifecycle remains through **Phase 02**. Phase 03 remains gated: a real downstream consumer requirement must be supplied and recorded before contract/API applicability work begins. Do not manufacture a fixture or infer that the optional A-Frame Bootstrap or A-Frame Reader relationship satisfies this gate.
+The current lifecycle is verified through **Phase 03** as of 2026-09-11. Phase 03 was opened only after the owner identified A-Frame Bootstrap as the real downstream consumer requirement, and it completed as a producer-side contract checkpoint. Do not claim A-Frame Bootstrap adoption until a separate A-Frame Bootstrap task consumes and proves the `depth-sol/0.3` contract.

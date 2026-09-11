@@ -1,13 +1,13 @@
 # Z-Depth CSS Project History and Evidence Map
 
-Date: 2026-09-10
-Scope: current-approved-checkpoint documentation, provenance, and session-archive closeout. This is a documentation audit, not a Phase 03 implementation or an archive operation.
+Date: 2026-09-11
+Scope: current-approved-checkpoint documentation, provenance, and Phase 03 producer-checkpoint closeout. This is not an archive operation.
 
 ## Current Truth
 
 Z-Depth CSS is a framework-agnostic, browser-safe depth and document-light CSS layer. Its `depth-sol` vocabulary is native product vocabulary within Z-Depth CSS. It is not a renamed sibling project and it does not depend on A-Frame Bootstrap or A-Frame Reader.
 
-Lifecycle status: **Phase 02 complete; Phase 03 not started and gated.** A concrete downstream consumer requirement is required before Phase 03 can decide a formal API, MCP surface, package surface, hosting surface, or browser-module-only contract. The optional deterministic A-Frame-shaped bridge is downstream integration evidence only; it does not itself open the Phase 03 gate.
+Lifecycle status: **Phase 03 complete as a producer checkpoint.** On 2026-09-11, the owner identified A-Frame Bootstrap as the real downstream consumer requirement. The resulting `depth-sol/0.3` contract covers CSS variables, utility classes, JSON output, and deterministic bridge event payloads for 2D layering, hover, focus, selection, and motion state. A-Frame Bootstrap adoption is not claimed until a separate A-Frame Bootstrap task proves consumption.
 
 Confidence: **high** for current Git/source/test state; **medium** for historical-session outcome classification where only repository evidence survives; **low/not asserted** for any uninspected external, credential, hosted, or remote state.
 
@@ -20,15 +20,16 @@ Confidence: **high** for current Git/source/test state; **medium** for historica
 | 2026-09-02 | `5fe9cda` through `8172ebf`, retained by `refs/codex/snapshots/588607635cbd771990948966721589d194ab7fb7` | historical product/verification line | high |
 | 2026-09-09 | `3b792c7` lifecycle onboarding; replay `d617a96` | lifecycle classification and recovery preparation | high |
 | 2026-09-09 | `9735ceb` through `29f3853`, then `36581dae` | recovery replay and Phase 01 evidence | high |
-| 2026-09-09 | `5220f85` | Phase 02 fresh local-verification evidence; current `main` tip | high |
+| 2026-09-09 | `5220f85` | Phase 02 fresh local-verification evidence | high |
 | 2026-09-10 | `920ba7c`, `4ec2752`, and earlier closeout task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` | documentation/provenance/session closeout artifacts; readable formal-goal receipt absent | high for commit/report facts; medium for closeout-process classification |
 | 2026-09-10 | current non-backdating ratification | formal goal activated before documentation edits; evidence-gap and formatting correction only | high |
+| 2026-09-11 | `14e3b92` and Phase 03 evidence | producer contract checkpoint for A-Frame Bootstrap consumption requirements; no downstream adoption claim | high |
 
 The recovery evidence establishes that the replayed product line was byte-equivalent to the preserved `8172ebf` snapshot before lifecycle documentation was added. A current comparison has no non-lifecycle product-source or test differences against that snapshot. The safety branch `safety/z-depth-saved-dirty-20260909` and stash `16a3883` preserve the partial saved-checkout provenance; neither is a disposal candidate in this closeout.
 
 ## Current Source and Verification Evidence
 
-At audit time, `HEAD` was `5220f853db61e336b4c8a0d8759cf9fe2a218347` (“Record Phase 02 local verification evidence”), reachable from local `main`; the checkout was detached in this worktree and clean before documentation edits. `origin/main` remains `0669728`; this observation does not authorize a push or imply a remote decision.
+At Phase 03 start, `HEAD` was `1365a7848d1a911a2f2ce2861859678f03cf04eb` (“Ratify Z-Depth closeout evidence limits”), also reachable from local `main`; the checkout was detached in this worktree and clean before Phase 03 branching. `origin/main` remains `0669728`; this observation does not authorize a push or imply a remote decision.
 
 The later closeout commits `920ba7c` and `4ec2752` are retained documentation evidence. Their associated task `01a08dac-3ae4-76a1-93e4-12e693f7beeb` has a final report, but no readable goal-tool activation/completion receipt; no formal-goal completion is asserted retroactively. The current ratification is a separate formal-goal record and cannot repair the historical absence.
 
@@ -53,6 +54,25 @@ tests/static-smoke.test.mjs 917c561f7a168a1c7a286ab794ac71c4a02dd53f2c27d08d1f7d
 ```
 
 `git fsck --no-reflogs --unreachable` reported loose unreachable objects. They were inventoried as preservation signals only; no prune, garbage collection, reset, clean, rewrite, or object deletion was performed.
+
+## Phase 03 Boundary
+
+Applicable Phase 03 surfaces:
+
+- browser module contract
+- CSS custom properties
+- producer utility classes
+- JSON bridge output
+- deterministic bridge event payloads
+
+Non-applicable or deferred Phase 03 surfaces:
+
+- API service
+- MCP surface
+- package-registry publication
+- hosting or deployment
+- credentials or production infrastructure
+- A-Frame Bootstrap adapter implementation
 
 ## Boundary and Review Routing
 
