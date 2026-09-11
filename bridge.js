@@ -1,6 +1,6 @@
 const DEFAULT_SCALE_PX_PER_METER = 1000;
 const DEFAULT_SCENE_ORIGIN = Object.freeze({ x: 0, y: 1.6, z: -2.5 });
-const CONTRACT_VERSION = "depth-sol/0.2";
+const CONTRACT_VERSION = "depth-sol/0.3";
 
 const DEFAULT_SOL = Object.freeze({
   x: 44,
@@ -19,7 +19,15 @@ const DEFAULT_SURFACE = Object.freeze({
   depthPx: 88,
   hue: 196,
   variant: "card",
+  layer: 0,
+  hovered: false,
+  focused: false,
+  selected: false,
+  motion: "idle",
 });
+
+const MOTION_STATES = Object.freeze(["idle", "enter", "exit", "active", "settled"]);
+const EVENT_TYPES = Object.freeze(["layer", "hover", "focus", "selection", "motion"]);
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -42,6 +50,15 @@ function parseHue(color, fallback = 196) {
 function normalizeAxes(value) {
   const axes = String(value || "xyz").toLowerCase().replace(/[^xyz]/g, "");
   return axes || "xyz";
+}
+
+function boolState(value) {
+  return value === true || value === "true" || value === "1" || value === 1 || value === "";
+}
+
+function normalizeMotion(value) {
+  const motion = String(value || DEFAULT_SURFACE.motion).toLowerCase();
+  return MOTION_STATES.includes(motion) ? motion : DEFAULT_SURFACE.motion;
 }
 
 export function pxToMeters(value, scale = DEFAULT_SCALE_PX_PER_METER) {
@@ -91,6 +108,7 @@ export function normalizeSurface(surface = {}) {
   const aspectRatio = parseAspectRatio(surface.aspectRatio, DEFAULT_SURFACE.aspectRatio);
   const depthPx = finiteNumber(surface.depthPx ?? surface.depth, DEFAULT_SURFACE.depthPx);
   const hue = finiteNumber(surface.hue, parseHue(surface.color, DEFAULT_SURFACE.hue));
+  const layer = Math.round(clamp(finiteNumber(surface.layer, DEFAULT_SURFACE.layer), -20, 20));
 
   return Object.freeze({
     id: String(surface.id || DEFAULT_SURFACE.id),
@@ -100,6 +118,11 @@ export function normalizeSurface(surface = {}) {
     depthPx,
     hue,
     variant: String(surface.variant || DEFAULT_SURFACE.variant),
+    layer,
+    hovered: boolState(surface.hovered),
+    focused: boolState(surface.focused),
+    selected: boolState(surface.selected),
+    motion: normalizeMotion(surface.motion),
   });
 }
 
@@ -160,6 +183,11 @@ export function parseDepthSolDocument(root = globalThis.document) {
       depthPx: parseCssLength(inlineDepth, parseCssLength(element.dataset.depthPx, DEFAULT_SURFACE.depthPx)),
       hue: parseHue(sol.color, DEFAULT_SURFACE.hue),
       variant: element.dataset.variant || DEFAULT_SURFACE.variant,
+      layer: element.dataset.depthSolLayer || element.dataset.layer || element.getAttribute("data-depth-layer"),
+      hovered: element.matches?.(":hover") || element.dataset.depthSolHover,
+      focused: element.matches?.(":focus-visible") || element.matches?.(":focus-within") || element.dataset.depthSolFocus,
+      selected: element.getAttribute("aria-selected") === "true" || element.dataset.depthSolSelected,
+      motion: element.dataset.depthSolMotion,
     });
   });
 
@@ -180,10 +208,15 @@ export function createBridgeModel({
   id,
   label,
   variant,
+  layer,
+  hovered,
+  focused,
+  selected,
+  motion,
 }) {
   const contract = createDepthSolContract({
     sol: { ...sol, color: sol?.color || `hsl(${hue} 90% 64%)` },
-    surfaces: [{ id, label, widthPx, aspectRatio, depthPx, hue, variant }],
+    surfaces: [{ id, label, widthPx, aspectRatio, depthPx, hue, variant, layer, hovered, focused, selected, motion }],
   });
 
   return createBridgeModels(contract, { scale, sceneOrigin })[0];
@@ -200,6 +233,19 @@ export function createBridgeModels(contract, { scale = DEFAULT_SCALE_PX_PER_METE
     const halfDepthM = round(depthM / 2, 3);
     const sol = normalizedContract.sol;
     const hue = surface.hue || parseHue(sol.color);
+    const stateBoostPx =
+      (surface.hovered ? 8 : 0) + (surface.focused ? 10 : 0) + (surface.selected ? 14 : 0) + (surface.motion === "active" ? 6 : 0);
+    const layerDepthPx = round(surface.depthPx + surface.layer * 12 + stateBoostPx, 3);
+    const interaction = Object.freeze({
+      layer: surface.layer,
+      hovered: surface.hovered,
+      focused: surface.focused,
+      selected: surface.selected,
+      motion: surface.motion,
+      zIndex: 100 + surface.layer,
+      depthOffsetPx: layerDepthPx,
+      depthOffsetM: pxToMeters(layerDepthPx, scale),
+    });
 
     const lightDistance = round(Math.max(sol.size / 10, 0.1), 1);
     const lightIntensity = round(clamp(0.7 + sol.z / 240, 0.7, 1.8), 2);
@@ -223,10 +269,12 @@ export function createBridgeModels(contract, { scale = DEFAULT_SCALE_PX_PER_METE
         ambientBlur: Math.round(surface.depthPx * 0.24 + sol.size * 0.18),
         shadowAlpha: round(clamp(0.22 + surface.depthPx / 280, 0.22, 0.7), 2),
         highlightAlpha: round(clamp(0.16 + sol.z / 420, 0.16, 0.48), 2),
+        interaction,
       },
       runtime: {
         scale,
         sceneOrigin,
+        interaction,
         entityName: surface.variant === "reader" ? "a-ui-panel" : surface.variant === "control" ? "a-ui-card" : "a-box",
         light: {
           type: "point",
@@ -264,6 +312,7 @@ export function createBridgeModels(contract, { scale = DEFAULT_SCALE_PX_PER_METE
 export function getCssCustomProperties(model) {
   const { sol, surface } = model.source;
   const browser = model.browser;
+  const interaction = browser.interaction;
 
   return {
     "--depth-sol-width": `${surface.widthPx}px`,
@@ -282,7 +331,57 @@ export function getCssCustomProperties(model) {
     "--depth-sol-ambient-blur": `${browser.ambientBlur}px`,
     "--depth-sol-shadow-color": `hsla(${Math.round(surface.hue * 0.18 + 220)} 72% 3% / ${browser.shadowAlpha})`,
     "--depth-sol-highlight-alpha": `${browser.highlightAlpha}`,
+    "--depth-sol-layer": `${interaction.layer}`,
+    "--depth-sol-z-index": `${interaction.zIndex}`,
+    "--depth-sol-depth-offset": `${interaction.depthOffsetPx}px`,
+    "--depth-sol-hover": interaction.hovered ? "1" : "0",
+    "--depth-sol-focus": interaction.focused ? "1" : "0",
+    "--depth-sol-selected": interaction.selected ? "1" : "0",
+    "--depth-sol-motion": interaction.motion,
   };
+}
+
+export function getDepthSolUtilityClasses(model) {
+  const interaction = model.browser.interaction;
+  return Object.freeze([
+    "z-depth-surface",
+    `z-depth-layer-${interaction.layer}`,
+    interaction.hovered ? "is-depth-hovered" : "",
+    interaction.focused ? "is-depth-focused" : "",
+    interaction.selected ? "is-depth-selected" : "",
+    interaction.motion !== "idle" ? `is-depth-motion-${interaction.motion}` : "",
+  ].filter(Boolean));
+}
+
+export function createDepthSolBridgeEvents(model) {
+  const interaction = model.browser.interaction;
+  const base = {
+    version: model.version,
+    surfaceId: model.source.surface.id,
+    layer: interaction.layer,
+    zIndex: interaction.zIndex,
+    depthOffsetPx: interaction.depthOffsetPx,
+    depthOffsetM: interaction.depthOffsetM,
+  };
+
+  return Object.freeze(
+    EVENT_TYPES.map((kind) =>
+      Object.freeze({
+        type: `depth-sol:${kind}`,
+        ...base,
+        state:
+          kind === "layer"
+            ? interaction.layer
+            : kind === "hover"
+              ? interaction.hovered
+              : kind === "focus"
+                ? interaction.focused
+                : kind === "selection"
+                  ? interaction.selected
+                  : interaction.motion,
+      }),
+    ),
+  );
 }
 
 export function applyDepthSolCssVars(target, model) {
@@ -303,6 +402,7 @@ export function formatSourceContract(model) {
     `  width: ${surface.widthPx}px;\n` +
     `  aspect-ratio: ${surface.aspectRatio};\n` +
     `  depth: ${surface.depthPx}px;\n` +
+    `  z-index: var(--depth-sol-z-index);\n` +
     `}`
   );
 }
@@ -343,6 +443,8 @@ export function formatBridgeJson(model) {
       source: model.source,
       browser: model.browser,
       aframe: model.runtime,
+      utilityClasses: getDepthSolUtilityClasses(model),
+      events: createDepthSolBridgeEvents(model),
     },
     null,
     2,
@@ -355,4 +457,6 @@ export {
   DEFAULT_SCENE_ORIGIN,
   DEFAULT_SOL,
   DEFAULT_SURFACE,
+  EVENT_TYPES,
+  MOTION_STATES,
 };

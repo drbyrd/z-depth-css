@@ -44,7 +44,7 @@
     <main id="top">
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">Version depth-sol/0.2</p>
+          <p class="eyebrow">Version depth-sol/0.3</p>
           <h1>Depth metadata for the flat web, ready for spatial interpretation.</h1>
           <p class="lede">
             Author a surface with <code>depth</code> and a document light named <code>sol</code>.
@@ -179,8 +179,13 @@
               class="depth-surface"
               id="demo-surface"
               data-depth-sol-surface
+              data-depth-sol-layer="1"
+              data-depth-sol-motion="idle"
+              data-depth-sol-selected="false"
               data-variant="product"
               depth="76px"
+              tabindex="0"
+              aria-selected="false"
               aria-label="Product card surface"
             >
               <div class="surface-media" aria-hidden="true"></div>
@@ -287,8 +292,8 @@
             <p>The surface shifts by half its depth so the authored DOM plane remains the readable face.</p>
           </article>
           <article>
-            <h3>Fallback</h3>
-            <p>If spatial output is unavailable, use the CSS custom properties and keep layout flat.</p>
+            <h3>State</h3>
+            <p>Layer, hover, focus, selection, and motion produce CSS variables, classes, and bridge events.</p>
           </article>
         </div>
       </section>
@@ -303,7 +308,7 @@
             <h3>A-Frame Bootstrap</h3>
             <p>
               Read <code>createBridgeModels(contract)</code>, map each model to existing
-              <code>a-ui-*</code> primitives, and keep A-Frame loaded by the consumer.
+              <code>a-ui-*</code> primitives, subscribe to deterministic bridge events, and keep A-Frame loaded by the consumer.
             </p>
           </article>
           <article class="info-card">
@@ -325,7 +330,7 @@
     </main>
 
     <footer class="site-footer">
-      <span>depth-sol/0.2</span>
+      <span>depth-sol/0.3</span>
       <span>Experimental, browser-safe, and dependency-free.</span>
     </footer>
 

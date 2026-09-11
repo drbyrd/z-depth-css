@@ -25,6 +25,13 @@
   --depth-sol-ambient-blur: 30px;
   --depth-sol-shadow-color: hsla(255 72% 3% / 0.49);
   --depth-sol-highlight-alpha: 0.46;
+  --depth-sol-layer: 1;
+  --depth-sol-z-index: 101;
+  --depth-sol-depth-offset: 88px;
+  --depth-sol-hover: 0;
+  --depth-sol-focus: 0;
+  --depth-sol-selected: 0;
+  --depth-sol-motion: idle;
 }
 
 * {
@@ -464,7 +471,7 @@ a:focus-visible {
 
 .depth-surface {
   position: relative;
-  z-index: 1;
+  z-index: var(--depth-sol-z-index);
   width: var(--depth-sol-width);
   min-height: var(--depth-sol-height);
   display: grid;
@@ -483,6 +490,62 @@ a:focus-visible {
     min-height 180ms ease,
     box-shadow 180ms ease,
     background 180ms ease;
+}
+
+.z-depth-surface {
+  --depth-sol-hover: 0;
+  --depth-sol-focus: 0;
+  --depth-sol-selected: 0;
+  transform: translateZ(0);
+}
+
+.z-depth-layer--1 {
+  --depth-sol-layer: -1;
+  --depth-sol-z-index: 99;
+}
+
+.z-depth-layer-0 {
+  --depth-sol-layer: 0;
+  --depth-sol-z-index: 100;
+}
+
+.z-depth-layer-1 {
+  --depth-sol-layer: 1;
+  --depth-sol-z-index: 101;
+}
+
+.z-depth-layer-2 {
+  --depth-sol-layer: 2;
+  --depth-sol-z-index: 102;
+}
+
+.z-depth-layer-3 {
+  --depth-sol-layer: 3;
+  --depth-sol-z-index: 103;
+}
+
+.z-depth-surface:hover,
+.z-depth-surface.is-depth-hovered {
+  --depth-sol-hover: 1;
+  transform: translateY(-2px);
+}
+
+.z-depth-surface:focus-visible,
+.z-depth-surface.is-depth-focused {
+  --depth-sol-focus: 1;
+  outline: 3px solid rgba(21, 107, 114, 0.28);
+  outline-offset: 4px;
+}
+
+.z-depth-surface[aria-selected="true"],
+.z-depth-surface.is-depth-selected {
+  --depth-sol-selected: 1;
+  border-color: hsl(var(--depth-sol-hue) 72% 42%);
+}
+
+.z-depth-surface.is-depth-motion-enter,
+.z-depth-surface.is-depth-motion-active {
+  --depth-sol-motion: active;
 }
 
 .surface-media {

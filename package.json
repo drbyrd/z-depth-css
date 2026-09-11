@@ -1,6 +1,6 @@
 {
   "name": "depth-sol",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "A browser-safe depth and document-light CSS kit with optional A-Frame bridge output.",

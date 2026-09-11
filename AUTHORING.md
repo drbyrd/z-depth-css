@@ -4,10 +4,11 @@ This document explains the versioned semantic contract explored by `depth-sol`.
 
 ## Overview
 
-The current contract version is `depth-sol/0.2`. It has two main parts:
+The current contract version is `depth-sol/0.3`. It has three main parts:
 
 - `depth` on a surface-like element
 - a document-level `<sol>` light source
+- producer state for layer, hover, focus, selection, and motion
 
 Together they express spatial intent without requiring a flat browser to render real 3D geometry.
 
@@ -47,6 +48,31 @@ The same value can become:
 - box depth
 - z-offset of geometry
 - a source for occlusion and light interaction
+
+## Producer State
+
+State extends the surface contract without turning this project into a UI framework.
+
+Example:
+
+```html
+<article
+  data-depth-sol-surface
+  data-depth-sol-layer="2"
+  data-depth-sol-selected="true"
+  data-depth-sol-motion="settled"
+></article>
+```
+
+Meaning:
+
+- `layer`: 2D stacking intent for z-index and scene ordering
+- `hovered`: hover state hint
+- `focused`: focus or focus-within state hint
+- `selected`: selection state hint
+- `motion`: `idle`, `enter`, `exit`, `active`, or `settled`
+
+The module exposes these values as CSS variables, utility classes, bridge JSON, and deterministic `depth-sol:*` event payloads. A consumer may map those outputs into its own event system or scene primitives, but this repository does not prescribe or ship that consumer behavior.
 
 ## `<sol>`
 
@@ -157,6 +183,13 @@ Current fallback variables include:
 - `--depth-sol-ambient-blur`
 - `--depth-sol-shadow-color`
 - `--depth-sol-highlight-alpha`
+- `--depth-sol-layer`
+- `--depth-sol-z-index`
+- `--depth-sol-depth-offset`
+- `--depth-sol-hover`
+- `--depth-sol-focus`
+- `--depth-sol-selected`
+- `--depth-sol-motion`
 
 ## Non-Goals
 

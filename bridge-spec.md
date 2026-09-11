@@ -10,7 +10,7 @@ This project defines a versioned browser-safe authoring contract that can later 
 
 ## Authoring Contract
 
-Current version: `depth-sol/0.2`
+Current version: `depth-sol/0.3`
 
 ### Document Light
 
@@ -34,6 +34,7 @@ Authoring meaning:
   width: 252px;
   aspect-ratio: 1;
   depth: 88px;
+  z-index: var(--depth-sol-z-index);
 }
 ```
 
@@ -42,6 +43,11 @@ Authoring meaning:
 - `width`: planar size
 - `aspect-ratio`: planar proportion
 - `depth`: semantic height into space
+- `layer`: ordered 2D stacking intent, normalized separately from physical depth
+- `hovered`, `focused`, `selected`: boolean interaction state hints
+- `motion`: one of `idle`, `enter`, `exit`, `active`, or `settled`
+
+State may be authored through data attributes such as `data-depth-sol-layer`, `data-depth-sol-hover`, `data-depth-sol-focus`, `data-depth-sol-selected`, and `data-depth-sol-motion`, or passed directly to the module API. These names are producer metadata only; consumers decide how to map them into their own controls, scenes, and tokens.
 
 ## Flat Browser Interpretation
 
@@ -144,9 +150,9 @@ Returned shape:
 
 ```js
 {
-  version: "depth-sol/0.2",
+  version: "depth-sol/0.3",
   sol: { x, y, z, size, color, axes },
-  surfaces: [{ id, label, widthPx, aspectRatio, depthPx, hue, variant }]
+  surfaces: [{ id, label, widthPx, aspectRatio, depthPx, hue, variant, layer, hovered, focused, selected, motion }]
 }
 ```
 
@@ -188,7 +194,7 @@ Returned model sections:
 
 - `source`: original authoring contract values
 - `browser`: flat-browser shadow and lift hints
-- `runtime`: normalized light, geometry, material, and shadow data
+- `runtime`: normalized light, geometry, material, shadow, and interaction data
 
 ### `parseDepthDeclaration(cssText)`
 
@@ -205,6 +211,39 @@ Reads a DOM root for one `<sol>` and any `[data-depth-sol-surface]` elements. Th
 ### `getCssCustomProperties(model)`
 
 Returns the flat-browser fallback custom properties for one bridge model.
+
+State-related properties include:
+
+- `--depth-sol-layer`
+- `--depth-sol-z-index`
+- `--depth-sol-depth-offset`
+- `--depth-sol-hover`
+- `--depth-sol-focus`
+- `--depth-sol-selected`
+- `--depth-sol-motion`
+
+### `getDepthSolUtilityClasses(model)`
+
+Returns producer utility classes for a surface. The stable class families are:
+
+- `z-depth-surface`
+- `z-depth-layer-N`
+- `is-depth-hovered`
+- `is-depth-focused`
+- `is-depth-selected`
+- `is-depth-motion-{state}`
+
+### `createDepthSolBridgeEvents(model)`
+
+Returns deterministic event payload objects in this order:
+
+- `depth-sol:layer`
+- `depth-sol:hover`
+- `depth-sol:focus`
+- `depth-sol:selection`
+- `depth-sol:motion`
+
+Each payload includes `version`, `surfaceId`, `layer`, `zIndex`, `depthOffsetPx`, `depthOffsetM`, and `state`. These are data records suitable for DOM dispatch or framework event buses, but this repository does not prescribe either mechanism.
 
 ### `applyDepthSolCssVars(target, model)`
 
@@ -232,6 +271,7 @@ Recommended stable path:
 
 - import `bridge.js` as an optional companion module
 - call `createBridgeModels(contract)`
+- read `model.browser.interaction`, `model.runtime.interaction`, or `createDepthSolBridgeEvents(model)` for layering and state changes
 - map `model.runtime.box.width`, `height`, `depth`, `position`, `material`, and `shadow` onto existing `a-ui-*` primitives or scene entities
 - keep A-Frame itself loaded by the consuming page
 - preserve the current A-Frame Bootstrap primitive API as the owner of scene-native interaction and theme behavior
@@ -249,5 +289,6 @@ Recommended stable path:
 
 - Defining a real CSS standard
 - Replacing A-Frame layout or component primitives
+- Shipping an A-Frame Bootstrap adapter from this repository
 - Forcing flat browsers to draw visible 3D geometry
 - Making `aframe-bootstrap` depend on this repository

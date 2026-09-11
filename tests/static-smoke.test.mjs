@@ -56,6 +56,7 @@ test("wires playground states and outputs to the bridge module", () => {
     "formatBridgeJson",
     "formatCssFallback",
     "formatSourceContract",
+    "getDepthSolUtilityClasses",
     "parseDepthDeclaration",
   ]) {
     assert.match(files.script, new RegExp(exportName));
@@ -72,8 +73,34 @@ test("documents the versioned contract and sibling consumption path", () => {
     assert.match(content, /A-Frame/);
   }
 
+  assert.match(files.html, /depth-sol\/0\.3/);
   assert.match(files.bridgeSpec, /1000px = 1m/);
   assert.match(files.bridgeSpec, /createBridgeModels/);
+  assert.match(files.bridgeSpec, /createDepthSolBridgeEvents/);
   assert.match(files.bridgeSpec, /A-Frame Reader/);
   assert.match(files.architecture, /package.json/);
+});
+
+test("ships the producer state contract without downstream dependencies", () => {
+  for (const cssToken of [
+    "--depth-sol-layer",
+    "--depth-sol-z-index",
+    "--depth-sol-depth-offset",
+    "--depth-sol-hover",
+    "--depth-sol-focus",
+    "--depth-sol-selected",
+    "--depth-sol-motion",
+  ]) {
+    assert.match(files.css, new RegExp(cssToken));
+    assert.match(files.bridgeSpec, new RegExp(cssToken));
+  }
+
+  for (const className of ["z-depth-surface", "z-depth-layer-1", "is-depth-focused", "is-depth-selected"]) {
+    assert.match(files.css, new RegExp(className));
+  }
+
+  assert.match(files.html, /data-depth-sol-layer/);
+  assert.match(files.script, /depthSolLayer/);
+  assert.match(files.bridgeSpec, /depth-sol:selection/);
+  assert.match(files.bridgeSpec, /Shipping an A-Frame Bootstrap adapter/);
 });

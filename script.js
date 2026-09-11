@@ -5,6 +5,7 @@ import {
   formatBridgeJson,
   formatCssFallback,
   formatSourceContract,
+  getDepthSolUtilityClasses,
   parseDepthDeclaration,
 } from "./bridge.js";
 
@@ -70,7 +71,7 @@ const presets = {
     copy:
       "A normal DOM card with depth-aware lighting. It remains readable, selectable, and touch friendly before any spatial runtime joins in.",
     values: { size: 304, depth: 76, lightX: 38, lightY: -42, lightZ: 128, lightSize: 64, hue: 196 },
-    surface: { aspectRatio: 1.24, variant: "card" },
+    surface: { aspectRatio: 1.24, variant: "card", layer: 1 },
   },
   reader: {
     label: "Reader pane",
@@ -78,7 +79,7 @@ const presets = {
     copy:
       "A preserved reading surface can use depth as quiet hierarchy in HTML and later become a comfortable panel in a VR reader.",
     values: { size: 360, depth: 44, lightX: -28, lightY: -64, lightZ: 148, lightSize: 72, hue: 48 },
-    surface: { aspectRatio: 1.7, variant: "reader" },
+    surface: { aspectRatio: 1.7, variant: "reader", layer: 0 },
   },
   dashboard: {
     label: "Dashboard tile",
@@ -86,7 +87,7 @@ const presets = {
     copy:
       "Status tiles keep their normal scan pattern while the depth value gives the bridge a stable elevation cue.",
     values: { size: 276, depth: 116, lightX: 74, lightY: -28, lightZ: 104, lightSize: 54, hue: 154 },
-    surface: { aspectRatio: 1.08, variant: "metric" },
+    surface: { aspectRatio: 1.08, variant: "metric", layer: 2, selected: true, motion: "settled" },
   },
   control: {
     label: "A-Frame control",
@@ -94,7 +95,7 @@ const presets = {
     copy:
       "A semantic control can pass normalized width, height, depth, variant, and light hints into existing A-Frame primitives.",
     values: { size: 252, depth: 92, lightX: -58, lightY: 32, lightZ: 118, lightSize: 48, hue: 278 },
-    surface: { aspectRatio: 1.38, variant: "control" },
+    surface: { aspectRatio: 1.38, variant: "control", layer: 3, focused: true, motion: "active" },
   },
 };
 
@@ -128,6 +129,11 @@ function createCurrentModel() {
     depthPx: values.depth,
     hue: values.hue,
     variant: selectedPreset.surface.variant,
+    layer: selectedPreset.surface.layer,
+    hovered: demoSurface.matches(":hover"),
+    focused: selectedPreset.surface.focused || demoSurface.matches(":focus-visible") || demoSurface.matches(":focus-within"),
+    selected: selectedPreset.surface.selected || demoSurface.getAttribute("aria-selected") === "true",
+    motion: selectedPreset.surface.motion,
     sol: {
       x: values.lightX,
       y: values.lightY,
@@ -146,6 +152,7 @@ function applyModel(model, { updateAuthoring = true } = {}) {
   syncOutputs(values);
   applyDepthSolCssVars(root, model);
   applyDepthSolCssVars(demoSurface, model);
+  demoSurface.className = `depth-surface ${getDepthSolUtilityClasses(model).join(" ")}`;
 
   demoSol.setAttribute("x", values.lightX);
   demoSol.setAttribute("y", values.lightY);
@@ -156,6 +163,10 @@ function applyModel(model, { updateAuthoring = true } = {}) {
   demoSurface.style.width = `${values.size}px`;
   demoSurface.style.aspectRatio = `${selectedPreset.surface.aspectRatio}`;
   demoSurface.dataset.variant = selectedPreset.surface.variant;
+  demoSurface.dataset.depthSolLayer = `${model.source.surface.layer}`;
+  demoSurface.dataset.depthSolMotion = model.source.surface.motion;
+  demoSurface.dataset.depthSolSelected = model.source.surface.selected ? "true" : "false";
+  demoSurface.setAttribute("aria-selected", model.source.surface.selected ? "true" : "false");
 
   document.getElementById("surface-label").textContent = selectedPreset.label;
   document.getElementById("surface-title").textContent = selectedPreset.title;

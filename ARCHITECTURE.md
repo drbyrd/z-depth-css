@@ -13,17 +13,20 @@ The repo has three layers:
 1. **Authoring contract**
    - `depth` describes semantic height into space
    - `<sol>` describes a document-level light source
-   - `depth-sol/0.2` is the current contract version
+   - `depth-sol/0.3` is the current contract version
+   - producer state describes layer, hover, focus, selection, and motion
 
 2. **Flat-browser presentation**
    - the page stays planar
-   - the contract is interpreted as shadow, lift, occlusion, glow, and color cues
-   - CSS custom properties keep the fallback easy to inspect and override
+- the contract is interpreted as shadow, lift, occlusion, glow, and color cues
+- CSS custom properties keep the fallback easy to inspect and override
+- utility classes keep layer and interaction state visible to ordinary CSS
 
 3. **Spatial bridge**
-   - the same input values can be normalized into scene units
-   - the output can be emitted as A-Frame-style geometry and light data
-   - sibling A-Frame projects can consume the model without depending on this repo
+- the same input values can be normalized into scene units
+- the output can be emitted as A-Frame-style geometry and light data
+- deterministic bridge events can be handed to a consumer-owned dispatcher
+- sibling A-Frame projects can consume the model without depending on this repo
 
 ## File Responsibilities
 
@@ -71,11 +74,12 @@ The proof-of-concept translator.
 Responsibilities:
 
 - normalize authoring values into a structured bridge model
-- expose `depth-sol/0.2` as the current contract version
+- expose `depth-sol/0.3` as the current contract version
 - parse small `depth` declarations and DOM-like `<sol>` elements
 - convert pixel values into scene units
 - calculate flat-browser custom properties
 - calculate runtime light and geometry properties
+- calculate framework-agnostic interaction state and bridge event payloads
 - emit formatted contract, CSS, JSON, and A-Frame-shaped strings
 
 ### `package.json`
@@ -146,6 +150,7 @@ From those values, the demo derives:
 - CSS custom properties for the browser rendering
 - a source contract string for `depth` and `<sol>`
 - a normalized bridge model
+- utility classes and deterministic state-event records
 - a JSON representation of that bridge model
 - an A-Frame-shaped runtime snippet
 

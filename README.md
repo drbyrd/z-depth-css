@@ -10,6 +10,7 @@ The idea is simple:
 
 - `depth` expresses an element's height into space
 - `<sol>` expresses a document-level light source with `x`, `y`, `z`, `size`, `color`, and `axes`
+- layer and interaction state express 2D hierarchy, hover, focus, selection, and motion without forcing a UI framework
 - in a normal browser, those semantics stay browser-safe and primarily affect shadow, lift, occlusion, and light color
 - in a spatial runtime, the same authored values can be mapped into real geometry and light placement
 
@@ -104,12 +105,16 @@ import {
   formatBridgeJson,
   formatCssFallback,
   formatSourceContract,
+  createDepthSolBridgeEvents,
+  getDepthSolUtilityClasses,
   parseDepthDeclaration,
   parseDepthSolDocument,
 } from "./bridge.js";
 ```
 
 Use `createBridgeModel(...)` for one surface, or `createDepthSolContract(...)` plus `createBridgeModels(...)` for several surfaces. Use `applyDepthSolCssVars(...)` when the flat page should receive the generated fallback custom properties.
+
+For producer-side integration, each surface may also carry `layer`, `hovered`, `focused`, `selected`, and `motion` state. The bridge emits matching CSS variables, utility classes, and ordered `depth-sol:*` event payloads. Consumers can map those hints into their own interaction systems without this repository importing A-Frame, A-Frame Bootstrap, or any framework code.
 
 ## Current Implementation
 
@@ -120,7 +125,7 @@ Use `createBridgeModel(...)` for one surface, or `createDepthSolContract(...)` p
 - `package.json` provides the local test and validation scripts.
 - `social-preview.svg` is a hand-authored social preview asset referenced by the page metadata.
 
-The current proof of concept models one document light, multiple practical surface presets, one fixed default scale, and A-Frame-shaped runtime targets that can be consumed without making either sibling project a hard dependency.
+The current proof of concept models one document light, multiple practical surface presets, one fixed default scale, framework-agnostic interaction-state output, and A-Frame-shaped runtime targets that can be consumed without making either sibling project a hard dependency.
 
 ## Files
 

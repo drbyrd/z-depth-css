@@ -11,6 +11,7 @@
 - Expanded `bridge.js` with contract normalizers, parser helpers, CSS custom-property output, JSON output, and optional multi-surface bridge models.
 - Rebuilt the static site into a consumer-facing playground with navigation, examples, editable authoring text, copyable outputs, reset, empty, and parse-error states.
 - Added dependency-free Node tests for bridge behavior, parser behavior, static smoke checks, accessibility hooks, and documentation alignment.
+- Added the `depth-sol/0.3` producer contract for CSS variable, utility-class, runtime-interaction, and deterministic bridge-event outputs covering layer, hover, focus, selection, and motion state.
 
 ## 2026-08-11
 
