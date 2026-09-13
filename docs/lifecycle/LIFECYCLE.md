@@ -762,7 +762,7 @@ The current lifecycle is verified through **Phase 03** as of 2026-09-11. Phase 0
 
 ## Phase 04 execution record — context and local/private readiness
 
-Status: **BLOCKED_FROZEN**. Execution authorization and the owner-selected posture
+Status: **COMPLETE**. Execution authorization and the owner-selected posture
 were recorded on 2026-09-13: isolated local/private reference readiness only. No
 public release, published site, hosting, DNS, credentials, real users, or external
 evidence is required or claimed. This resolves Phase 04's posture gate without
@@ -845,7 +845,10 @@ record still reports `blocked`; this is retained as a process-state limit, not
 silently rewritten as a completion receipt. Phase 04 remains incomplete pending
 the bounded review result and a truthful goal completion record.
 
-The documentation checks run at `c639ed4` and repeated at `9ade7ba` were:
+The documentation checks run at `c639ed4` and repeated at `9ade7ba` were the
+stored whitespace, protected-path, seven-authority/wiring, visible-copy,
+ref/stash, and clean-tree checks. They did not establish the expanded all-25
+tracked-Markdown local-link result:
 
 ```sh
 git diff --check                                  # PASS, no whitespace errors
@@ -871,12 +874,13 @@ git show-ref --head; git stash list                # PASS, entry refs/stash reta
 git status --short --branch --untracked-files=all  # PASS, clean detached tree
 ```
 
-The recorded candidates are `e7cbbe1` (context and wiring), `c639ed4`
-(readiness evidence), and `9ade7ba` (turn-1 remediation). This turn-2 remediation
-is checked against that clean candidate immediately before its documentation-only
-commit; `git log --format='%H %s' 45b33aa..HEAD` resolves the complete commit set
-without a self-referential receipt. The post-commit frozen-check result and clean
-tree are reported with that resolved SHA in the task review record.
+The direct Git chronology is four documentation commits: `e7cbbe1` (context and
+wiring), `c639ed4` (readiness evidence), `9ade7ba` (turn-1 remediation), and
+`b325265` (turn-2 remediation and completion record). The expanded all-25
+tracked-Markdown local-link check first ran at `b325265`; it passed there, along
+with the frozen whitespace, protected-path, authority-order, visible-copy (1/1),
+ref/stash, and clean-tree checks. `git log --format='%H %s' 45b33aa..HEAD`
+resolves that complete set without a self-referential receipt.
 
 Before the posture was supplied, initial local diagnostics at entry `45b33aa`
 did run `npm test` (14 passing), `npm run verify` (14 passing), and `npm run
@@ -887,38 +891,31 @@ and external checks remain deferred by the selected posture.
 
 The entry and final preservation comparison found the same retained local main,
 recovery, producer, safety, snapshot, remote-tracking, and stash records; only
-detached HEAD advanced through the three documentation commits. No product,
+detached HEAD advanced through the four documentation commits. No product,
 dependency, recovery state, deployment, publication, history, existing ref, stash,
 or task archive action occurred.
 
-Review turn 1 returned HOLD with finite documentation findings D1–D3. After this
-remediation passes the frozen checks and is committed, the candidate is
-**RECHECK_READY** for review turn 2/3. That review is limited to this
-documentation delta and must not reopen accepted Phase 03, architecture, or frozen
-F1–F6. Phase 04 becomes complete only after a PASS, final verification, logical
-commit evidence, clean status, and a truthful formal-goal completion receipt.
+Review turn 1 returned HOLD with finite documentation findings D1–D3; turn 2
+returned HOLD after the first remediation; turn 3 on `b325265` returned
+`FINAL_REVIEW_FAIL` with only D3. The bounded Astra/high review of the integrated
+documentation delta at `eb252934a9652035d339fedb304739f4d86d7ae2` then passed
+the reconciliation. Under the owner-authorized D3-only remediation, that is the
+final review: no additional or reopened Astra review is authorized. It did not
+reopen accepted Phase 03, architecture, or frozen F1–F6.
 
-### Final frozen-review disposition
+### D3 remediation and completion disposition
 
-The bounded GPT-6 Astra/high review used all three permitted turns. Turn 3 on
-`b325265ee67011490a3a8a3c2c17345beb2aea8b` returned **FINAL_REVIEW_FAIL** with
-only D3 remaining. D1 (the complete `d5462cf` definition and authoring record in
-the seventh authority) and D2 (per-file and mixed-section classification with
-actual local-link coverage) are resolved.
+D3 is resolved by the direct chronology correction above: `b325265`—not
+`c639ed4` or `9ade7ba`—is the first expanded all-25 tracked-Markdown local-link
+check, the documentation line contains four commits, and review turns 1 and 2
+were HOLD. The prior `a09d1a6` frozen block remains preserved in Git as dated
+evidence; this current record corrects its sole remaining discrepancy rather than
+rewriting that history.
 
-The remaining frozen issue is documentary chronology: the command block above
-incorrectly attributes the expanded all-25-Markdown local-link check to `c639ed4`
-and `9ade7ba`; that expanded check first ran during the `b325265` remediation.
-The subsequent summary also still says there are three documentation commits and
-that the work is ready for review turn 2, although `b325265` is the fourth commit
-and turns 1 and 2 completed as HOLD. Those statements are retained as the exact
-review finding rather than silently repaired after the permitted review budget.
-
-Phase 04 is therefore blocked for the frozen review scope. The local/private
-posture, standalone `depth-sol/0.3` contract, separately owned A-Frame Bootstrap
-consumer boundary, and frozen Phase 03 F1–F6 PASS remain accepted. Final frozen
-checks on `b325265` passed: whitespace, protected product-file equality, seven
-authority order, all 25 tracked-Markdown local targets, the visible-copy guard
-(1/1), clean detached status, and unchanged non-HEAD refs and stash. No further
-review, product suite, product change, dependency change, publication, archive,
-or recovery action follows from this blocked record.
+The owner-authorized D3 remediation, the stored checks, and the bounded
+integration Astra/high PASS satisfy the remaining Phase 04 exit condition. This
+documentation-only logical commit and the active formal-goal completion receipt
+are the completion record. The local/private posture, standalone `depth-sol/0.3`
+contract, separately owned A-Frame Bootstrap consumer boundary, and frozen Phase
+03 F1–F6 PASS remain accepted. No further review, product suite, product change,
+dependency change, publication, archive, or recovery action follows.

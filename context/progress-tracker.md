@@ -12,15 +12,15 @@
 
 ## Phase 04
 
-Phase 04 is the documentation and readiness phase. The owner-selected posture is
+Phase 04 is the completed documentation and readiness phase. The owner-selected posture is
 local/private reference readiness: no public release, published site, hosting,
 DNS, credentials, real users, or external evidence is required or implied. This
-context consolidation is Phase 04 execution work, not completion by itself.
+context consolidation was Phase 04 execution work. Its four documentation commits
+and D3 chronology correction are recorded in the lifecycle library.
 
-The valid next state after documentation verification and logical commits is
-`REVIEW_READY` for one bounded Astra/high documentation-delta review. Public or
-hardware proof and any new product work remain deferred and require a separately
-authorized phase or goal.
+The bounded Astra/high review requirement is satisfied by the integrated-delta
+PASS recorded there. Public or hardware proof and any new product work remain
+deferred and require a separately authorized phase or goal.
 
 Historical evidence, including missing earlier formal-goal receipts, stays dated
 and limited; it must not be silently repaired or recast as fresh proof.
