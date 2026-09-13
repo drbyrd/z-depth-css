@@ -762,7 +762,7 @@ The current lifecycle is verified through **Phase 03** as of 2026-09-11. Phase 0
 
 ## Phase 04 execution record — context and local/private readiness
 
-Status: **REVIEW_READY**. Execution authorization and the owner-selected posture
+Status: **BLOCKED_FROZEN**. Execution authorization and the owner-selected posture
 were recorded on 2026-09-13: isolated local/private reference readiness only. No
 public release, published site, hosting, DNS, credentials, real users, or external
 evidence is required or claimed. This resolves Phase 04's posture gate without
@@ -897,3 +897,28 @@ remediation passes the frozen checks and is committed, the candidate is
 documentation delta and must not reopen accepted Phase 03, architecture, or frozen
 F1–F6. Phase 04 becomes complete only after a PASS, final verification, logical
 commit evidence, clean status, and a truthful formal-goal completion receipt.
+
+### Final frozen-review disposition
+
+The bounded GPT-6 Astra/high review used all three permitted turns. Turn 3 on
+`b325265ee67011490a3a8a3c2c17345beb2aea8b` returned **FINAL_REVIEW_FAIL** with
+only D3 remaining. D1 (the complete `d5462cf` definition and authoring record in
+the seventh authority) and D2 (per-file and mixed-section classification with
+actual local-link coverage) are resolved.
+
+The remaining frozen issue is documentary chronology: the command block above
+incorrectly attributes the expanded all-25-Markdown local-link check to `c639ed4`
+and `9ade7ba`; that expanded check first ran during the `b325265` remediation.
+The subsequent summary also still says there are three documentation commits and
+that the work is ready for review turn 2, although `b325265` is the fourth commit
+and turns 1 and 2 completed as HOLD. Those statements are retained as the exact
+review finding rather than silently repaired after the permitted review budget.
+
+Phase 04 is therefore blocked for the frozen review scope. The local/private
+posture, standalone `depth-sol/0.3` contract, separately owned A-Frame Bootstrap
+consumer boundary, and frozen Phase 03 F1–F6 PASS remain accepted. Final frozen
+checks on `b325265` passed: whitespace, protected product-file equality, seven
+authority order, all 25 tracked-Markdown local targets, the visible-copy guard
+(1/1), clean detached status, and unchanged non-HEAD refs and stash. No further
+review, product suite, product change, dependency change, publication, archive,
+or recovery action follows from this blocked record.
