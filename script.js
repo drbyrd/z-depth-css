@@ -75,9 +75,9 @@ const presets = {
   },
   reader: {
     label: "Reader pane",
-    title: "Archived chapter panel",
+    title: "Long-form reader panel",
     copy:
-      "A preserved reading surface can use depth as quiet hierarchy in HTML and later become a comfortable panel in a VR reader.",
+      "A reading surface can use depth as quiet hierarchy in HTML and later become a comfortable panel in a VR reader.",
     values: { size: 360, depth: 44, lightX: -28, lightY: -64, lightZ: 148, lightSize: 72, hue: 48 },
     surface: { aspectRatio: 1.7, variant: "reader", layer: 0 },
   },

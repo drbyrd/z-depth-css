@@ -132,7 +132,7 @@ Possible future integration patterns:
 
 ## Current Proof of Concept
 
-This repository now includes a small bridge utility in [`bridge.js`](./bridge.js).
+Z-Depth CSS includes a small bridge utility in [`bridge.js`](./bridge.js).
 
 - `createBridgeModel(...)` converts `depth` and `sol` values into normalized browser and runtime data.
 - `formatSourceContract(...)` emits the authored contract string.
@@ -281,9 +281,9 @@ Recommended stable path:
 Recommended stable path:
 
 - preserve article panes as normal HTML with `data-depth-sol-surface`
-- use `applyDepthSolCssVars(...)` for the flat archive page
+- use `applyDepthSolCssVars(...)` for the flat reader page
 - use `formatBridgeJson(...)` or the raw bridge model for any VR reader view
-- avoid requiring the archive page to initialize WebGL or WebXR
+- avoid requiring the reader page to initialize WebGL or WebXR
 
 ## Non-Goals
 

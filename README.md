@@ -1,10 +1,10 @@
-# depth-sol
+# Z-Depth CSS
 
-An experimental flat-web depth semantic: `depth` and `<sol>` as browser-safe spatial metadata with an A-Frame bridge.
+A browser-safe depth and document-light CSS kit with optional A-Frame-shaped bridge output.
 
 ## What This Is
 
-`depth-sol` is a small concept project exploring what a spatially aware authoring contract might look like on the flat web.
+Z-Depth CSS is a small developer kit for expressing spatial intent on ordinary web pages.
 
 The idea is simple:
 
@@ -14,19 +14,19 @@ The idea is simple:
 - in a normal browser, those semantics stay browser-safe and primarily affect shadow, lift, occlusion, and light color
 - in a spatial runtime, the same authored values can be mapped into real geometry and light placement
 
-This is not a standards proposal, a production library, or a framework. It is a compact browser kit with a live playground, a documented authoring contract, and a deterministic bridge model.
+This is not a standards proposal or a UI framework. It is a compact browser kit with a live playground, a documented authoring contract, and a deterministic bridge model.
 
 ## Relationship to aframe-bootstrap
 
 This repo is deliberately complementary to `aframe-bootstrap`.
 
 - `aframe-bootstrap` focuses on native spatial UI: scene primitives, layout, tokens, interaction, and composition inside A-Frame
-- `depth-sol` focuses on document-level semantics that can degrade gracefully in flat browsers and later translate into spatial runtimes
+- Z-Depth CSS focuses on document-level semantics that can degrade gracefully in flat browsers and later translate into spatial runtimes
 
 In other words:
 
 - `aframe-bootstrap` owns scene-native UI
-- `depth-sol` owns browser-safe spatial intent
+- Z-Depth CSS owns browser-safe spatial intent
 
 ## Core Contract
 
@@ -93,7 +93,7 @@ That lets a runtime map:
 
 ## Browser Kit API
 
-The kit is dependency-free and intentionally small. Import the browser-safe ES module directly:
+The package is dependency-free and intentionally small. Import the browser-safe ES module from the package, or from `./bridge.js` when working from a local checkout:
 
 ```js
 import {
@@ -109,7 +109,7 @@ import {
   getDepthSolUtilityClasses,
   parseDepthDeclaration,
   parseDepthSolDocument,
-} from "./bridge.js";
+} from "z-depth-css";
 ```
 
 Use `createBridgeModel(...)` for one surface, or `createDepthSolContract(...)` plus `createBridgeModels(...)` for several surfaces. Use `applyDepthSolCssVars(...)` when the flat page should receive the generated fallback custom properties.
@@ -140,7 +140,6 @@ The current proof of concept models one document light, multiple practical surfa
 - [`ARCHITECTURE.md`](./ARCHITECTURE.md): structure, responsibilities, and data flow
 - [`AUTHORING.md`](./AUTHORING.md): authoring contract explained without implementation detail
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md): project boundaries and contribution style
-- [`EVIDENCE.md`](./EVIDENCE.md): local verification and browser QA record
 - [`social-preview.svg`](./social-preview.svg): Open Graph / social preview artwork
 - [`.gitignore`](./.gitignore): local-only, cache, and temporary-file exclusions
 - [`LICENSE`](./LICENSE): MIT license
@@ -153,7 +152,6 @@ The current proof of concept models one document light, multiple practical surfa
 - Read [`ARCHITECTURE.md`](./ARCHITECTURE.md) for file responsibilities and data flow
 - Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) for scope boundaries if you want to extend the project
 - Read [`SECURITY.md`](./SECURITY.md) for secret-handling and repository hygiene notes
-- Read [`EVIDENCE.md`](./EVIDENCE.md) for the latest local validation record
 
 ## Running It Locally
 
@@ -211,7 +209,7 @@ Manual browser checks:
 
 Recommended GitHub description:
 
-> An experimental flat-web depth semantic: depth and `<sol>` as browser-safe spatial metadata with an A-Frame bridge.
+> Browser-safe depth and document-light CSS utilities with an optional A-Frame-shaped bridge.
 
 Recommended GitHub topics:
 

@@ -7,11 +7,14 @@ const files = {
   html: await readFile("index.html", "utf8"),
   css: await readFile("styles.css", "utf8"),
   script: await readFile("script.js", "utf8"),
+  packageJson: await readFile("package.json", "utf8"),
   readme: await readFile("README.md", "utf8"),
   authoring: await readFile("AUTHORING.md", "utf8"),
   bridgeSpec: await readFile("bridge-spec.md", "utf8"),
   architecture: await readFile("ARCHITECTURE.md", "utf8"),
 };
+
+const packageJson = JSON.parse(files.packageJson);
 
 test("ships the expected consumer documentation surface", () => {
   for (const href of ["#contract", "#playground", "#examples", "#bridge", "#integrate"]) {
@@ -35,6 +38,28 @@ test("keeps private process language out of visible page copy", () => {
 
   for (const word of blocked) {
     assert.doesNotMatch(visibleCopy, new RegExp(word, "i"));
+  }
+});
+
+test("declares a public package identity and tight shipping surface", () => {
+  assert.equal(packageJson.name, "z-depth-css");
+  assert.notEqual(packageJson.private, true);
+  assert.equal(packageJson.exports["."], "./bridge.js");
+
+  for (const shippedFile of ["bridge.js", "styles.css", "index.html", "AUTHORING.md", "INTEGRATION.md"]) {
+    assert.ok(packageJson.files.includes(shippedFile), `${shippedFile} should be included`);
+  }
+
+  for (const internalFile of [
+    "docs/lifecycle",
+    "EVIDENCE.md",
+    "session-ledger.md",
+    "project-history-and-evidence-map.md",
+    "archive-manifest.md",
+    "current-state-closeout.md",
+    "tests",
+  ]) {
+    assert.ok(!packageJson.files.includes(internalFile), `${internalFile} should stay out of the package`);
   }
 });
 
@@ -75,6 +100,7 @@ test("documents the versioned contract and sibling consumption path", () => {
   }
 
   assert.match(files.html, /depth-sol\/0\.3/);
+  assert.match(files.html, /Z-Depth CSS/);
   assert.match(files.bridgeSpec, /1000px = 1m/);
   assert.match(files.bridgeSpec, /createBridgeModels/);
   assert.match(files.bridgeSpec, /createDepthSolBridgeEvents/);

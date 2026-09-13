@@ -1,6 +1,6 @@
 # Authoring Model
 
-This document explains the versioned semantic contract explored by `depth-sol`.
+This document explains the versioned semantic contract used by Z-Depth CSS.
 
 ## Overview
 

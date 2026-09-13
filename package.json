@@ -1,9 +1,35 @@
 {
-  "name": "depth-sol",
+  "name": "z-depth-css",
   "version": "0.3.0",
-  "private": true,
   "type": "module",
-  "description": "A browser-safe depth and document-light CSS kit with optional A-Frame bridge output.",
+  "description": "Browser-safe depth and document-light CSS utilities with optional A-Frame-shaped bridge output.",
+  "license": "MIT",
+  "module": "./bridge.js",
+  "exports": {
+    ".": "./bridge.js",
+    "./bridge.js": "./bridge.js",
+    "./styles.css": "./styles.css"
+  },
+  "files": [
+    "bridge.js",
+    "styles.css",
+    "script.js",
+    "index.html",
+    "social-preview.svg",
+    "AUTHORING.md",
+    "ARCHITECTURE.md",
+    "INTEGRATION.md",
+    "bridge-spec.md",
+    "CHANGELOG.md",
+    "SECURITY.md"
+  ],
+  "keywords": [
+    "css",
+    "depth",
+    "spatial-web",
+    "webxr",
+    "a-frame"
+  ],
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "validate": "node tests/static-smoke.test.mjs",

@@ -1,8 +1,8 @@
-# depth-sol Integration Contract
+# Z-Depth CSS Integration Contract
 
 Current contract version: `depth-sol/0.3`
 
-This file is the concise handoff contract for consumers that want the depth and `sol` model without making this repository a hard dependency.
+This file is the concise handoff contract for consumers that want the Z-Depth CSS depth and `sol` model without making this repository a hard dependency.
 
 ## Stable Inputs
 
@@ -110,15 +110,15 @@ Recommended mapping:
 
 The consuming A-Frame Bootstrap app continues to own A-Frame loading, primitive registration, theme tokens, interaction states, and scene composition.
 
-This repository does not ship, import, or test an A-Frame Bootstrap adapter. Downstream adoption must be proven in a separate A-Frame Bootstrap task.
+This repository does not ship, import, or test an A-Frame Bootstrap adapter. Downstream adoption should be verified in the consuming A-Frame Bootstrap project.
 
 ## A-Frame Reader Path
 
-Use normal HTML for archived reading surfaces and attach `data-depth-sol-surface`.
+Use normal HTML for saved reading surfaces and attach `data-depth-sol-surface`.
 
 Recommended mapping:
 
-- use generated CSS variables for the static archive page
+- use generated CSS variables for the static reader page
 - serialize `formatBridgeJson(model)` into a reader manifest when a VR view needs it
 - keep original article text and media available without any spatial runtime
 - use the bridge model only as progressive enhancement
@@ -136,5 +136,5 @@ Recommended mapping:
 - Browser module contract: applicable and covered by local tests in this repo.
 - API service: not applicable for Phase 03; no server contract is introduced.
 - MCP surface: not applicable for Phase 03; no connector or tool surface is introduced.
-- Package registry publication: deferred; `package.json` remains private and no publication is claimed.
+- Package registry publication: not performed here; package metadata only describes the local package boundary.
 - Hosting or deployment: not applicable for the producer checkpoint; local static verification is sufficient.
