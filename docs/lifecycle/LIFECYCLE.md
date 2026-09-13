@@ -248,6 +248,76 @@ Logical commit boundary:
 
 ## Phase 04 - Documentation and Public Readiness Applicability
 
+### Stored authoring definition and provenance
+
+This phase was fully authored at
+`d5462cff30df9dc1a6888c27f16914cb418f05cd` on 2026-09-12 by the separate
+GPT-6 Astra/high definition task. That commit is retained at
+`refs/codex/snapshots/f7277da1f348fa038ce1cb82e6939e50a8f02b95`; this section
+brings its governing definition into the tracked seventh authority. It did not
+execute Phase 04. The execution baseline was clean detached
+`45b33aaacbd88367c458dc92dd14961f340b50e6`; local `main` still points there.
+
+Exact execution objective:
+
+> Decide what public-facing readiness means without requiring deployment. After
+> explicit execution authorization and an owner-selected readiness posture,
+> consolidate Z-Depth CSS's future-work context into the owner-requested original
+> JavaScript Mastery six-file system, in the exact order below, followed by this
+> existing lifecycle library as the seventh authority. Populate from direct
+> repository evidence, wire the order through root `AGENTS.md`, classify
+> supporting and historical documents without losing provenance, and make only
+> applicable README, authoring, integration, security, evidence, public-copy,
+> license and repository-hygiene documentation corrections. Preserve the accepted
+> producer and real-consumer contract, standalone identity, and all existing
+> evidence limits. Finish with local documentation verification, one bounded
+> Astra/high review, logical documentation commits and a truthful completion
+> record. No product, dependency, publishing, archival or recovery-state changes
+> are authorized.
+
+The current execution disposition is isolated local/private reference readiness:
+public release, published-site readiness, hosting, DNS, credentials, real users,
+and external evidence are deferred and non-blocking.
+
+### Authorities, invariants, and execution controls
+
+The required authorities are, in order: `context/project-overview.md` (identity,
+scope, named consumer); `context/architecture.md` (static ownership and data
+flow); `context/ui-context.md` (existing visual/state behavior and proof limits);
+`context/code-standards.md` (dependency-free implementation and hygiene);
+`context/ai-workflow-rules.md` (goals, evidence, routing and stop rules);
+`context/progress-tracker.md` (dated phase state and deferred proof); and this
+library (sole numbering, gates, acceptance, verification and completion
+authority). `AGENTS.md` routes that order and is not an eighth content source.
+
+Preserve standalone `depth-sol/0.3`, the static browser path, `1000px = 1m`,
+stable variables, class families, model/JSON fields, deterministic event order,
+layer range, state vocabulary, F5 authoritative interaction state, and the
+plane/depth-offset distinction. Preserve A-Frame Bootstrap as the named,
+separately owned real consumer. Frozen F1–F6 PASS remains acceptance evidence at
+its recorded producer/consumer SHAs; it is neither reopened nor expanded. Do not
+claim browser DOM, WebGL, ray/focus, headset, accessibility, public-release,
+external-security, or Reader-adoption proof.
+
+Classify every tracked Markdown file and `LICENSE` by path, role, evidence
+SHA/date, unique facts, current destination or pointer, disposition and reason,
+with link results. Keep historical and mixed documents in place unless direct
+evidence proves a lossless replacement. Record exact command outcomes and skips,
+logical commits, ref/stash comparison, and the formal-goal state. Stop for missing
+authorization, unrelated dirt, missing indispensable provenance, broken links, or
+any need to change product scope, dependencies, refs/stash, history, deployment,
+credentials, sibling state, or task archives.
+
+The documentation procedure is `git diff --check`; a source-file exclusion diff
+against the entry SHA; the seven-authority/file-link check; the named visible-copy
+guard; commit/ref/stash/status inspection; and bounded Astra/high delta review.
+`npm test`, `npm run verify`, and `npm run validate` are maintained product checks;
+they are not required fresh evidence for a documentation-only delta. The completion
+record must state authorization/posture, formal-goal state, entry, evidence,
+authority/conflict audit, created/updated files, per-file classification,
+posture-specific copy/license/hygiene result, commands and skips, review, commits,
+preservation, exit status, remaining limits, and non-actions.
+
 Purpose: decide what public-facing readiness means without requiring deployment.
 
 Entry gate:
@@ -328,15 +398,39 @@ history map, ledger, and archive manifest record the later PASS and its limits.
 
 ### Documentation classification
 
-| Path or section | Role and evidence | Disposition / retained destination |
+Each row was checked against the entry tree `45b33aa` (2026-09-11) or the
+Phase 04 creation commit `e7cbbe1` (2026-09-13). “Link PASS” means local file
+targets were resolved by the Phase 04 documentation check on 2026-09-13; neither
+that result nor this table claims external-link verification.
+
+| Path / evidence SHA-date | Role and unique facts | Current destination, disposition, reason, link result |
 | --- | --- | --- |
-| `AGENTS.md`; `context/*.md` | Canonical routing and six bounded summaries, Phase 04 execution | Current canonical context; retain in place. |
-| `docs/lifecycle/LIFECYCLE.md` | Phase authority; current Phase 04 record | Current seventh authority; retain in place. |
-| `README.md`, `AUTHORING.md`, `ARCHITECTURE.md`, `INTEGRATION.md`, `bridge-spec.md` | Current product, authoring, architecture, consumer, and detailed bridge contracts | Current supporting documents; retain detailed facts in place and point from context. |
-| `CONTRIBUTING.md`, `SECURITY.md`, `LICENSE` | Working boundaries, hygiene, and MIT terms | Current supporting documents; retain in place. Security now states local/private posture. |
-| `CHANGELOG.md`, `EVIDENCE.md` | Historical changes and September 2 evidence | Historical/mixed evidence; retain dated scope and point readers to lifecycle evidence. |
-| `docs/lifecycle/ONBOARDING-EVIDENCE.md`, `PHASE-01-RECOVERY-EVIDENCE.md`, `PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md`, `PHASE-03-CONTRACT-EVIDENCE.md` | Dated lifecycle evidence and verification | Historical phase evidence; retain unchanged. |
-| `current-state-closeout.md`, `project-history-and-evidence-map.md`, `session-ledger.md`, `archive-manifest.md` | Mixed closeout, provenance, task, and archival classification | Retain in place with dated limits; none grants new archival authority. |
+| `AGENTS.md` / `e7cbbe1`, 2026-09-13 | Exact seven-authority read order | Canonical routing; retain; Link PASS. |
+| `context/project-overview.md` / `e7cbbe1`, 2026-09-13 | Identity, scope, non-goals, named consumer | Canonical context; retain; Link PASS. |
+| `context/architecture.md` / `e7cbbe1`, 2026-09-13 | Static ownership, data flow, runtime boundary | Canonical context; retain; Link PASS. |
+| `context/ui-context.md` / `e7cbbe1`, 2026-09-13 | Visual language, UI states, proof limits | Canonical context; retain; Link PASS. |
+| `context/code-standards.md` / `e7cbbe1`, 2026-09-13 | Direct ES modules, commands, hygiene | Canonical context; retain; Link PASS. |
+| `context/ai-workflow-rules.md` / `e7cbbe1`, 2026-09-13 | Goal, evidence, route, stop controls | Canonical context; retain; Link PASS. |
+| `context/progress-tracker.md` / `e7cbbe1`, 2026-09-13 | Accepted phases, local/private posture, next review | Canonical context; retain; Link PASS. |
+| `docs/lifecycle/LIFECYCLE.md` / `d5462cf`, 2026-09-12; current record `c639ed4` | Sole phase gates, stored definition, execution record | Seventh authority; retain; Link PASS. |
+| `README.md` / `45b33aa`, 2026-09-11; update `c639ed4` | Public product explanation, running, API map | Current support; retain detailed guidance; Link PASS. |
+| `AUTHORING.md` / `45b33aa`, 2026-09-11 | `depth-sol/0.3` semantics, inputs, defaults | Current support; retain; Link PASS. |
+| `ARCHITECTURE.md` / `45b33aa`, 2026-09-11 | File ownership, data flow, extension boundary | Current support; retain; Link PASS. |
+| `INTEGRATION.md` / `45b33aa`, 2026-09-11 | Stable producer/consumer handoff | Current support; retain; Link PASS. |
+| `bridge-spec.md` / `45b33aa`, 2026-09-11 | Detailed normalization and mapping rules | Current support; retain; Link PASS. |
+| `CONTRIBUTING.md` / `45b33aa`, 2026-09-11 | Contribution scope and local checks | Current support; retain; Link PASS. |
+| `SECURITY.md` / `45b33aa`, 2026-09-11; update `c639ed4` | Secrets, ignored local state, local/private posture | Current support; retain; Link PASS. |
+| `LICENSE` / `45b33aa`, 2026-09-11 | MIT permission and warranty terms | Current legal text; retain unchanged; no links. |
+| `CHANGELOG.md` / `45b33aa`, 2026-09-11 | Historical product change chronology | Historical; retain dated record; Link PASS. |
+| `EVIDENCE.md` / `45b33aa`, 2026-09-11 | September 2 checks and limits | Mixed: introductory current pointers, historical body; retain sections in place; Link PASS. |
+| `docs/lifecycle/ONBOARDING-EVIDENCE.md` / `d617a96`, 2026-09-09 | Phase 00 classification and baseline | Historical phase evidence; retain; Link PASS. |
+| `docs/lifecycle/PHASE-01-RECOVERY-EVIDENCE.md` / `36581da`, 2026-09-09 | Snapshot recovery decision and provenance | Historical phase evidence; retain; Link PASS. |
+| `docs/lifecycle/PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md` / `5220f85`, 2026-09-09 | Fresh Phase 02 commands and results | Historical phase evidence; retain; Link PASS. |
+| `docs/lifecycle/PHASE-03-CONTRACT-EVIDENCE.md` / `2ee3a30`, 2026-09-11 | Producer contract and conditional next phase | Historical/current contract evidence; retain; Link PASS. |
+| `current-state-closeout.md` / `45b33aa`, 2026-09-11 | Current Phase 03/F1–F6 summary and external limits | Mixed closeout; retain dated scope; Link PASS. |
+| `project-history-and-evidence-map.md` / `45b33aa`, 2026-09-11 | Lineage, confidence, retained evidence | Mixed provenance map; retain; Link PASS. |
+| `session-ledger.md` / `45b33aa`, 2026-09-11 | Task/session classifications and exceptions | Historical task evidence; retain; Link PASS. |
+| `archive-manifest.md` / `45b33aa`, 2026-09-11 | Advisory retention and archive classifications | Historical/archive evidence; retain; Link PASS. |
 
 No tracked Markdown document or `LICENSE` is deprecated or moved: direct evidence
 does not establish a lossless replacement for its unique facts. Missing earlier
@@ -345,25 +439,51 @@ proof.
 
 ### Execution evidence and exit gate
 
-Documentation-only work created the six files and wiring, then added this record
-and the applicable README/security corrections. The documentation checks are:
+Documentation-only work created the six files and wiring in
+`e7cbbe135369508598d663c0210d10698de459f6`, then added the applicable
+README/security corrections and first execution record in
+`c639ed490c2952386c3a16fc6f3003c952026478`. This remediation records the
+definition and provenance gaps found by Astra/high review turn 1; its commit is
+resolved after the final checks below. The tested documentation tree before this
+remediation was clean `c639ed4`; protected product paths remained byte-identical
+to entry `45b33aa`.
+
+Formal-goal chronology: task `01a09acf-f3a8-7a60-804c-84f85baf7c76` created the
+execution goal and returned `active` before the first Phase 04 edit. It was later
+recorded `blocked` when the posture gate was missing. The owner then supplied the
+local/private disposition and explicitly resumed execution. The available goal
+record still reports `blocked`; this is retained as a process-state limit, not
+silently rewritten as a completion receipt. Phase 04 remains incomplete pending
+the bounded review result and a truthful goal completion record.
+
+The documentation checks run at `c639ed4` were:
 
 ```sh
-git diff --check
-python3 <local seven-authority and link check>
+git diff --check                                  # PASS, no whitespace errors
+git diff --exit-code 45b33aa -- <protected paths> # PASS, no product-path diff
+python3 <seven-authority/file-link check>         # PASS
 node --test --test-name-pattern='keeps private process language out of visible page copy' tests/static-smoke.test.mjs
+                                                    # PASS, 1/1
+git show-ref --head; git stash list                # PASS, entry refs/stash retained
+git status --short --branch --untracked-files=all  # PASS, clean detached tree
 ```
 
-`npm test`, `npm run verify`, and `npm run validate` are not fresh Phase 04
-evidence: this documentation-only phase does not alter the maintained product
-contract and does not rerun the accepted Phase 03 universe. Browser, HTTP,
-hardware, hosting, credential, and external checks are likewise deferred by
-posture. Compare refs and stash before/after commits; no recovery state, product,
-dependency, deployment, publication, history, ref, stash, or task archive action
-is authorized.
+Before the posture was supplied, initial local diagnostics at entry `45b33aa`
+did run `npm test` (14 passing), `npm run verify` (14 passing), and `npm run
+validate` (7 passing). They are fresh diagnostic results from that earlier turn,
+not required Phase 04 acceptance and not a reopened product-review universe. They
+were not rerun after context edits. Browser, HTTP, hardware, hosting, credential,
+and external checks remain deferred by the selected posture.
 
-The next action is one bounded GPT-6 Astra/high review of this documentation delta
-only. It must return PASS or HOLD and must not reopen accepted Phase 03,
-architecture, or frozen F1–F6. Phase 04 becomes complete only after that review,
-final verification, logical commit evidence, clean status, and the active formal
-goal's completion receipt.
+The entry and final preservation comparison found the same retained local main,
+recovery, producer, safety, snapshot, remote-tracking, and stash records; only
+detached HEAD advanced through the three documentation commits. No product,
+dependency, recovery state, deployment, publication, history, existing ref, stash,
+or task archive action occurred.
+
+Review turn 1 returned HOLD with finite documentation findings D1–D3. After this
+remediation passes the frozen checks and is committed, the candidate is
+**RECHECK_READY** for review turn 2/3. That review is limited to this
+documentation delta and must not reopen accepted Phase 03, architecture, or frozen
+F1–F6. Phase 04 becomes complete only after a PASS, final verification, logical
+commit evidence, clean status, and a truthful formal-goal completion receipt.
