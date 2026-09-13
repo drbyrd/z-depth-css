@@ -301,3 +301,69 @@ This routing governs evidence-led documentation and archive-readiness work. It d
 - Use **GPT-6 Astra / xhigh** only when Astra/high cannot resolve genuinely conflicting lineages from the available evidence.
 
 The current lifecycle is verified through **Phase 03** as of 2026-09-11. Phase 03 was opened only after the owner identified A-Frame Bootstrap as the real downstream consumer requirement, and it completed as a producer-side contract checkpoint. The separate A-Frame Bootstrap task later consumed and proved the `depth-sol/0.3` contract at `ffa255d`, `2cc9673`, and `58f9a6a`, but final architecture acceptance remains **HOLD** pending bounded remediation and GPT-6 Astra/high re-review.
+
+## Phase 04 execution record — context and local/private readiness
+
+Status: **REVIEW_READY**. Execution authorization and the owner-selected posture
+were recorded on 2026-09-13: isolated local/private reference readiness only. No
+public release, published site, hosting, DNS, credentials, real users, or external
+evidence is required or claimed. This resolves Phase 04's posture gate without
+changing product scope.
+
+### Authority and preservation
+
+The six context files are the canonical future-work summaries, in this exact
+order: `context/project-overview.md`, `context/architecture.md`,
+`context/ui-context.md`, `context/code-standards.md`,
+`context/ai-workflow-rules.md`, and `context/progress-tracker.md`. This library is
+the seventh and sole phase authority. Root `AGENTS.md` wires that order; it is
+routing, not an eighth content authority.
+
+The execution baseline was clean detached `45b33aaacbd88367c458dc92dd14961f340b50e6`.
+The accepted producer chain remains `14e3b92` / `2ee3a30` / `6bdbeb8` / `fcddb43`.
+The separately owned A-Frame Bootstrap adoption and frozen Astra/high F1–F6 PASS
+remain dated consumer evidence, not a dependency or a new acceptance universe.
+Historic HOLD language above is preserved as its dated checkpoint; the closeout,
+history map, ledger, and archive manifest record the later PASS and its limits.
+
+### Documentation classification
+
+| Path or section | Role and evidence | Disposition / retained destination |
+| --- | --- | --- |
+| `AGENTS.md`; `context/*.md` | Canonical routing and six bounded summaries, Phase 04 execution | Current canonical context; retain in place. |
+| `docs/lifecycle/LIFECYCLE.md` | Phase authority; current Phase 04 record | Current seventh authority; retain in place. |
+| `README.md`, `AUTHORING.md`, `ARCHITECTURE.md`, `INTEGRATION.md`, `bridge-spec.md` | Current product, authoring, architecture, consumer, and detailed bridge contracts | Current supporting documents; retain detailed facts in place and point from context. |
+| `CONTRIBUTING.md`, `SECURITY.md`, `LICENSE` | Working boundaries, hygiene, and MIT terms | Current supporting documents; retain in place. Security now states local/private posture. |
+| `CHANGELOG.md`, `EVIDENCE.md` | Historical changes and September 2 evidence | Historical/mixed evidence; retain dated scope and point readers to lifecycle evidence. |
+| `docs/lifecycle/ONBOARDING-EVIDENCE.md`, `PHASE-01-RECOVERY-EVIDENCE.md`, `PHASE-02-LOCAL-VERIFICATION-EVIDENCE.md`, `PHASE-03-CONTRACT-EVIDENCE.md` | Dated lifecycle evidence and verification | Historical phase evidence; retain unchanged. |
+| `current-state-closeout.md`, `project-history-and-evidence-map.md`, `session-ledger.md`, `archive-manifest.md` | Mixed closeout, provenance, task, and archival classification | Retain in place with dated limits; none grants new archival authority. |
+
+No tracked Markdown document or `LICENSE` is deprecated or moved: direct evidence
+does not establish a lossless replacement for its unique facts. Missing earlier
+formal-goal receipts remain missing; no historical evidence was rewritten as fresh
+proof.
+
+### Execution evidence and exit gate
+
+Documentation-only work created the six files and wiring, then added this record
+and the applicable README/security corrections. The documentation checks are:
+
+```sh
+git diff --check
+python3 <local seven-authority and link check>
+node --test --test-name-pattern='keeps private process language out of visible page copy' tests/static-smoke.test.mjs
+```
+
+`npm test`, `npm run verify`, and `npm run validate` are not fresh Phase 04
+evidence: this documentation-only phase does not alter the maintained product
+contract and does not rerun the accepted Phase 03 universe. Browser, HTTP,
+hardware, hosting, credential, and external checks are likewise deferred by
+posture. Compare refs and stash before/after commits; no recovery state, product,
+dependency, deployment, publication, history, ref, stash, or task archive action
+is authorized.
+
+The next action is one bounded GPT-6 Astra/high review of this documentation delta
+only. It must return PASS or HOLD and must not reopen accepted Phase 03,
+architecture, or frozen F1–F6. Phase 04 becomes complete only after that review,
+final verification, logical commit evidence, clean status, and the active formal
+goal's completion receipt.

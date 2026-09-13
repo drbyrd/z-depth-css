@@ -1,6 +1,8 @@
 # Security and Repository Hygiene
 
-This repository is intended to stay small, static, and safe to back up to GitHub.
+This repository is intended to stay small, static, and safe to retain in version
+control. The current readiness posture is local/private reference state; no public
+release, hosting, or credential-backed service is implied.
 
 ## Secrets Policy
 

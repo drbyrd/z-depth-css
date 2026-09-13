@@ -147,6 +147,8 @@ The current proof of concept models one document light, multiple practical surfa
 
 ## Documentation Map
 
+- Read [`AGENTS.md`](./AGENTS.md) first when doing repository work; it orders the
+  project context and lifecycle authority.
 - Start with [`README.md`](./README.md) for the project overview
 - Read [`AUTHORING.md`](./AUTHORING.md) for the semantic contract
 - Read [`bridge-spec.md`](./bridge-spec.md) for the runtime mapping details
@@ -154,6 +156,10 @@ The current proof of concept models one document light, multiple practical surfa
 - Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) for scope boundaries if you want to extend the project
 - Read [`SECURITY.md`](./SECURITY.md) for secret-handling and repository hygiene notes
 - Read [`EVIDENCE.md`](./EVIDENCE.md) for the latest local validation record
+
+The `context/` files are concise repository-work context. They do not replace the
+detailed contract and dated evidence documents above; [`docs/lifecycle/LIFECYCLE.md`](./docs/lifecycle/LIFECYCLE.md)
+is the sole lifecycle authority.
 
 ## Running It Locally
 
